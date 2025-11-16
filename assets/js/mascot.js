@@ -48,7 +48,7 @@ const holidayMascots = {
         start: { month: 10, day: 15 },
         end: { month: 10, day: 31 },
         mascots: [
-            // 'mascot-halloween-1.png',
+            'Halloween-1.png',
             // 'mascot-halloween-2.png',
         ]
     },

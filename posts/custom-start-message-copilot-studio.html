@@ -154,6 +154,43 @@
                         <span class="tag">tutorials</span>
                     </div>
                 </div>
+
+                <!-- Comments Section -->
+                <div class="comments-section">
+                    <h2 class="comments-title">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span id="comment-count">0 Comments</span>
+                    </h2>
+                    
+                    <!-- Comment Form -->
+                    <div class="comment-form">
+                        <div id="comment-auth-prompt" class="comment-auth-prompt">
+                            <p>Please <a href="#" id="comment-signin-link">sign in</a> to leave a comment.</p>
+                        </div>
+                        <div id="comment-form-container" class="comment-form-container" style="display: none;">
+                            <textarea 
+                                id="comment-input" 
+                                placeholder="Share your thoughts..." 
+                                maxlength="1000"
+                                rows="4"
+                            ></textarea>
+                            <div class="comment-form-actions">
+                                <span class="comment-char-count">
+                                    <span id="comment-char-count">0</span>/1000
+                                </span>
+                                <button id="post-comment-btn" class="btn btn-primary">Post Comment</button>
+                            </div>
+                            <div id="comment-error" class="comment-error"></div>
+                        </div>
+                    </div>
+
+                    <!-- Comments List -->
+                    <div id="comments-list" class="comments-list">
+                        <p class="loading-message">Loading comments...</p>
+                    </div>
+                </div>
             </article>
             
             <div class="article-navigation">
@@ -170,6 +207,46 @@
 
     <script src="../firebase-config.js" defer></script>
     <script type="module" src="../assets/js/auth.js" defer></script>
+    <script type="module" src="../assets/js/comments.js" defer></script>
     <script src="../assets/js/shared.js" defer></script>
+    <script type="module">
+        import { initComments, postComment } from '../assets/js/comments.js';
+        
+        // Get post ID from URL
+        const postId = 'custom-start-message-copilot-studio';
+        
+        // Initialize comments when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            initComments(postId);
+            
+            // Update comment form visibility based on auth state
+            window.addEventListener('auth-state-changed', (e) => {
+                const authPrompt = document.getElementById('comment-auth-prompt');
+                const formContainer = document.getElementById('comment-form-container');
+                
+                if (e.detail.user) {
+                    authPrompt.style.display = 'none';
+                    formContainer.style.display = 'block';
+                } else {
+                    authPrompt.style.display = 'block';
+                    formContainer.style.display = 'none';
+                }
+            });
+            
+            // Sign in link
+            document.getElementById('comment-signin-link')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('signin-btn')?.click();
+            });
+            
+            // Post comment button
+            document.getElementById('post-comment-btn')?.addEventListener('click', postComment);
+            
+            // Character count
+            document.getElementById('comment-input')?.addEventListener('input', (e) => {
+                document.getElementById('comment-char-count').textContent = e.target.value.length;
+            });
+        });
+    </script>
 </body>
 </html>

@@ -23,6 +23,8 @@ function initFirebase() {
         // Listen for auth state changes
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
+            window.currentUser = user; // Make available globally for comments
+            
             if (authManagerInstance) {
                 authManagerInstance.user = user ? {
                     id: user.uid,
@@ -31,6 +33,11 @@ function initFirebase() {
                 } : null;
                 authManagerInstance.notifyListeners();
             }
+            
+            // Dispatch custom event for other components (like comments)
+            window.dispatchEvent(new CustomEvent('auth-state-changed', {
+                detail: { user: user }
+            }));
         });
     }
 }
