@@ -18,6 +18,7 @@ let currentUser = null;
 function initFirebase() {
     if (window.firebaseConfig) {
         const app = initializeApp(window.firebaseConfig);
+        window.firebaseApp = app; // Make Firebase app available globally
         auth = getAuth(app);
         
         // Listen for auth state changes

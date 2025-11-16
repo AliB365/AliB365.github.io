@@ -122,6 +122,11 @@ export async function postComment() {
         return;
     }
 
+    if (!db) {
+        showCommentError('Database not initialized. Please refresh the page.');
+        return;
+    }
+
     try {
         await addDoc(collection(db, 'comments'), {
             postId: currentPostId,
@@ -143,6 +148,11 @@ export async function postComment() {
 // Delete a comment
 window.deleteComment = async function(commentId) {
     if (!confirm('Are you sure you want to delete this comment?')) {
+        return;
+    }
+
+    if (!db) {
+        alert('Database not initialized. Please refresh the page.');
         return;
     }
 
