@@ -82,6 +82,25 @@ If you prefer to create posts manually:
                     <li><a href="../index.html#about">About</a></li>
                     <li><a href="../index.html#blog">Articles</a></li>
                     <li><a href="../index.html#contact">Contact</a></li>
+                    <li id="auth-nav-container">
+                        <div id="auth-buttons" class="auth-buttons">
+                            <button id="signin-btn" class="btn btn-secondary btn-nav">Sign In</button>
+                        </div>
+                        <div id="user-menu" class="user-menu" style="display: none;">
+                            <button id="user-menu-btn" class="user-menu-btn">
+                                <span id="user-name-display"></span>
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                    <path d="M6 9L1 4h10z"/>
+                                </svg>
+                            </button>
+                            <div id="user-dropdown" class="user-dropdown">
+                                <div class="user-info">
+                                    <div class="user-email" id="user-email-display"></div>
+                                </div>
+                                <button id="signout-btn" class="dropdown-item">Sign Out</button>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
                 <button class="mobile-menu-toggle" aria-label="Toggle menu">
                     <span></span>
@@ -159,6 +178,8 @@ If you prefer to create posts manually:
         </div>
     </footer>
 
+    <script src="../firebase-config.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
     <script src="../assets/js/shared.js"></script>
 </body>
 </html>

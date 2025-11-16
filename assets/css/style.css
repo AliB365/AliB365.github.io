@@ -138,6 +138,18 @@ body {
     transition: 0.3s;
 }
 
+/* Auth button in navbar */
+.btn-nav {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+#auth-nav-container {
+    display: flex;
+    align-items: center;
+}
+
 /* ===== Hero Section ===== */
 .hero {
     padding: 6rem 0 4rem;
