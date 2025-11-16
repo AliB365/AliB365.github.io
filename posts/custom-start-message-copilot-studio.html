@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 </head>
 <body>
     <nav class="navbar">
@@ -88,7 +89,7 @@
                     </div>
                 </div>
                 
-                <img src="../assets/images/ThumbnailCustomMessage.png" alt="Personalise Your AI: Changing the Start Message in Copilot Studio" class="article-image">
+                <img src="../assets/images/ThumbnailCustomMessage.png" alt="Personalise Your AI: Changing the Start Message in Copilot Studio" class="article-image" width="900" height="450" loading="eager">
                 
                 <div class="article-body">
                     <div class="callout callout-info" style="margin-bottom:2rem;">
@@ -113,25 +114,25 @@
                         <li><strong>Open your agent in Copilot Studio</strong><br>
                             Go to <a href="https://copilotstudio.microsoft.com/" target="_blank" rel="noopener">Copilot Studio</a> and open the agent you want to edit.<br>
                             <div class="image-zoom-container">
-                                <img src="../assets/images/AgentOverviewTab.png" alt="Copilot Studio Agent Overview Page" class="article-image-step">
+                                <img src="../assets/images/AgentOverviewTab.png" alt="Copilot Studio Agent Overview Page" class="article-image-step" width="900" height="600" loading="lazy">
                             </div>
                         </li>
                         <li><strong>Navigate to the 'Topics' tab</strong><br>
                             At the top navigation, click on the 'Topics' tab to access the conversation topics for your agent.<br>
                             <div class="image-zoom-container">
-                                <img src="../assets/images/AgentTopicTab.png" alt="Copilot Studio Topics Tab" class="article-image-step crop-top zoomable" style="transform-origin: 40% 0%;">
+                                <img src="../assets/images/AgentTopicTab.png" alt="Copilot Studio Topics Tab" class="article-image-step zoomable" style="object-fit: cover; object-position: top; transform-origin: 40% 0%;" width="900" height="600" loading="lazy">
                             </div>
                         </li>
                         <li><strong>Open the 'Conversation start' topic</strong><br>
                             Next to the 'Custom' selected filter button, click the 'System' button. This will display all the predefined system topics, and you should see one called 'Conversation Start'. This is the topic that contains the starter message.<br>
                             <div class="image-zoom-container">
-                              <img src="../assets/images/AgentConversationStartTopic.png" alt="Copilot Studio Conversation Start Topic" class="article-image-step crop-top">
+                              <img src="../assets/images/AgentConversationStartTopic.png" alt="Copilot Studio Conversation Start Topic" class="article-image-step" style="object-fit: cover; object-position: top;" width="900" height="600" loading="lazy">
                             </div>  
                         </li>
                         <li><strong>Edit the start message</strong><br>
                             Click on the 'Conversation Start' topic to open it. To edit the message just click on the text in the 'Message' box. You can edit this message to whatever you like.<br>
                             <div class="image-zoom-container">
-                                <img src="../assets/images/AgentEditConversationStartMessage.png" alt="Copilot Studio Edit Conversation Start Message" class="article-image-step crop-bottom zoomable" style=" width:100%; height:auto; transform-origin: 99% 100%;">
+                                <img src="../assets/images/AgentEditConversationStartMessage.png" alt="Copilot Studio Edit Conversation Start Message" class="article-image-step zoomable" style="transform-origin: 99% 100%;" width="900" height="600" loading="lazy">
                             </div>
                         </li>
                         <li><strong>Save your changes</strong><br>
@@ -164,8 +165,8 @@
         </div>
     </footer>
 
-    <script src="../firebase-config.js"></script>
-    <script type="module" src="../assets/js/auth.js"></script>
-    <script src="../assets/js/shared.js"></script>
+    <script src="../firebase-config.js" defer></script>
+    <script type="module" src="../assets/js/auth.js" defer></script>
+    <script src="../assets/js/shared.js" defer></script>
 </body>
 </html>

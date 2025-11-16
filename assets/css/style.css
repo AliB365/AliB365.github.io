@@ -652,45 +652,6 @@ section {
     transform: scale(1.5);
 }
 
-/* Mobile responsive fixes for article images */
-@media (max-width: 768px) {
-    .article-image-step.crop-top,
-    .article-image-step.crop-bottom,
-    .article-image-step.crop-custom {
-        max-height: none !important;
-        height: auto !important;
-        object-fit: contain !important;
-        object-position: center !important;
-    }
-    
-    .article-image-step.zoomable {
-        cursor: default;
-    }
-    
-    .article-image-step.zoomable:hover {
-        transform: none;
-    }
-    
-    .image-zoom-container {
-        overflow: visible;
-    }
-}
-
-@media (max-width: 480px) {
-    .article-image-step {
-        border-radius: 8px;
-    }
-    
-    .article-image-step.zoomable:hover {
-        transform: none;
-    }
-    
-    .image-zoom-container {
-        margin: 0.75rem 0;
-        overflow: visible;
-    }
-}
-
 .article-body {
     font-size: 1.125rem;
     line-height: 1.8;
