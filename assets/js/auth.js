@@ -479,11 +479,30 @@ class AuthUI {
 
 // Initialize auth UI when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
-    // Initialize Firebase first
+    // Wait for firebase-config.js to load
+    const waitForConfig = () => {
+        return new Promise((resolve) => {
+            if (window.firebaseConfig) {
+                resolve();
+            } else {
+                const checkInterval = setInterval(() => {
+                    if (window.firebaseConfig) {
+                        clearInterval(checkInterval);
+                        resolve();
+                    }
+                }, 50);
+            }
+        });
+    };
+    
+    await waitForConfig();
+    
+    // Initialize Firebase
     initFirebase();
     
-    // Small delay to ensure Firebase is ready
-    setTimeout(() => {
-        const authUI = new AuthUI(authManager);
-    }, 100);
+    // Small delay to ensure Firebase is fully initialized
+    await new Promise(resolve => setTimeout(resolve, 200));
+    
+    // Initialize auth UI
+    const authUI = new AuthUI(authManager);
 });
