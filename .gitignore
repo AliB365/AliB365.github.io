@@ -1,0 +1,26 @@
+# Node modules
+node_modules/
+
+# Old backend files (no longer needed with Firebase)
+server.js
+data/users.json
+data/sessions.json
+AUTHENTICATION.md
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
