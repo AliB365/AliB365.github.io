@@ -31,7 +31,7 @@ function displayFeaturedPost() {
     const featuredSection = document.getElementById('featured-post');
     featuredSection.innerHTML = `
         <div class="featured-post" onclick="openArticlePreview('${featuredPost.id}')">
-            <img src="${featuredPost.image}" alt="${featuredPost.title}" class="featured-post-image">
+            <img src="${featuredPost.image}" alt="${featuredPost.title}" class="featured-post-image" width="600" height="400" loading="eager">
             <div class="featured-post-content">
                 <span class="featured-badge">Featured Article</span>
                 <h3 class="featured-post-title">${featuredPost.title}</h3>
@@ -83,7 +83,7 @@ function displayBlogPosts() {
     
     blogGrid.innerHTML = postsToDisplay.map(post => `
         <div class="blog-card" onclick="openArticlePreview('${post.id}')">
-            <img src="${post.image}" alt="${post.title}" class="blog-card-image">
+            <img src="${post.image}" alt="${post.title}" class="blog-card-image" width="400" height="250" loading="lazy">
             <div class="blog-card-content">
                 <div class="blog-card-tags">
                     ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
@@ -172,7 +172,7 @@ function openArticlePreview(postId) {
                 <span>${post.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')}</span>
             </div>
         </div>
-        ${post.image ? `<img src="${post.image}" alt="${post.title}" class="article-image">` : ''}
+        ${post.image ? `<img src="${post.image}" alt="${post.title}" class="article-image" width="900" height="450" loading="lazy">` : ''}
         <div class="article-preview">
             <h2>About This Article</h2>
             <p class="preview-excerpt">${post.excerpt}</p>
