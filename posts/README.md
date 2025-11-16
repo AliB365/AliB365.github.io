@@ -164,6 +164,43 @@ If you prefer to create posts manually:
                         <span class="tag">tag2</span>
                     </div>
                 </div>
+
+                <!-- Comments Section -->
+                <div class="comments-section">
+                    <h2 class="comments-title">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span id="comment-count">0 Comments</span>
+                    </h2>
+                    
+                    <!-- Comment Form -->
+                    <div class="comment-form">
+                        <div id="comment-auth-prompt" class="comment-auth-prompt">
+                            <p>Please <a href="#" id="comment-signin-link">sign in</a> to leave a comment.</p>
+                        </div>
+                        <div id="comment-form-container" class="comment-form-container" style="display: none;">
+                            <textarea 
+                                id="comment-input" 
+                                placeholder="Share your thoughts..." 
+                                maxlength="1000"
+                                rows="4"
+                            ></textarea>
+                            <div class="comment-form-actions">
+                                <span class="comment-char-count">
+                                    <span id="comment-char-count">0</span>/1000
+                                </span>
+                                <button id="post-comment-btn" class="btn btn-primary">Post Comment</button>
+                            </div>
+                            <div id="comment-error" class="comment-error"></div>
+                        </div>
+                    </div>
+
+                    <!-- Comments List -->
+                    <div id="comments-list" class="comments-list">
+                        <p class="loading-message">Loading comments...</p>
+                    </div>
+                </div>
             </article>
             
             <div class="article-navigation">
@@ -178,9 +215,49 @@ If you prefer to create posts manually:
         </div>
     </footer>
 
-    <script src="../firebase-config.js"></script>
-    <script type="module" src="../assets/js/auth.js"></script>
-    <script src="../assets/js/shared.js"></script>
+    <script src="../firebase-config.js" defer></script>
+    <script type="module" src="../assets/js/auth.js" defer></script>
+    <script type="module" src="../assets/js/comments.js" defer></script>
+    <script src="../assets/js/shared.js" defer></script>
+    <script type="module">
+        import { initComments, postComment } from '../assets/js/comments.js';
+        
+        // Get post ID from URL (use your post slug)
+        const postId = 'your-post-id';
+        
+        // Initialize comments when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            initComments(postId);
+            
+            // Update comment form visibility based on auth state
+            window.addEventListener('auth-state-changed', (e) => {
+                const authPrompt = document.getElementById('comment-auth-prompt');
+                const formContainer = document.getElementById('comment-form-container');
+                
+                if (e.detail.user) {
+                    authPrompt.style.display = 'none';
+                    formContainer.style.display = 'block';
+                } else {
+                    authPrompt.style.display = 'block';
+                    formContainer.style.display = 'none';
+                }
+            });
+            
+            // Sign in link
+            document.getElementById('comment-signin-link')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('signin-btn')?.click();
+            });
+            
+            // Post comment button
+            document.getElementById('post-comment-btn')?.addEventListener('click', postComment);
+            
+            // Character count
+            document.getElementById('comment-input')?.addEventListener('input', (e) => {
+                document.getElementById('comment-char-count').textContent = e.target.value.length;
+            });
+        });
+    </script>
 </body>
 </html>
 ```
@@ -211,3 +288,31 @@ Add an entry to `data/posts-index.json`:
 - **Indexable**: Search engines can crawl and index each page independently
 - **Scalable**: Performance doesn't degrade as you add more posts
 - **Simple**: Just HTML files, easy to edit and deploy
+
+## 💬 Comments System
+
+Every blog post includes a built-in comments section with these features:
+
+### Features
+- ✅ **Authentication Required**: Only signed-in users can comment
+- ✅ **Real-time Updates**: Comments appear instantly using Firebase Firestore
+- ✅ **Delete Own Comments**: Users can delete their own comments (delete button only shows for comment author)
+- ✅ **Character Limit**: 1000 characters max with live counter
+- ✅ **XSS Protection**: Comments are sanitized to prevent security issues
+- ✅ **Time Formatting**: Displays relative time ("5 minutes ago", "2 hours ago", etc.)
+
+### How It Works
+1. **Not Signed In**: Users see a prompt to sign in before commenting
+2. **Signed In**: Comment form appears with text area and post button
+3. **Post Comment**: Comments are stored in Firebase Firestore under the `comments` collection
+4. **View Comments**: All comments load in real-time, newest first
+5. **Delete Comment**: Users see a delete button (🗑️) only on their own comments
+
+### Important Note
+**Remember to change the `postId`** in the script section to match your post's unique identifier (usually the same as the filename without .html):
+
+```javascript
+const postId = 'your-post-slug'; // Change this!
+```
+
+This ensures comments are properly associated with each individual post.
