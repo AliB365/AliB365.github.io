@@ -631,7 +631,7 @@ section {
 /* Specific cropping for different images */
 .article-image-step.crop-top {
     object-position: top;
-    max-height: 400px;
+    max-height: 30vh;
 }
 
 .article-image-step.crop-bottom {
