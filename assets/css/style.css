@@ -931,23 +931,100 @@ section {
     .article-full {
         padding: 1.5rem;
         border-radius: 0;
+        margin: 1rem 0;
     }
     
     .article-full .article-title {
-        font-size: 2rem;
+        font-size: 1.75rem;
+        line-height: 1.3;
+        margin-bottom: 1rem;
     }
     
     .article-full .article-image {
         height: 250px;
+        margin: 1.5rem 0;
+        border-radius: 8px;
     }
     
     .article-full .article-meta {
         gap: 1rem;
+        flex-wrap: wrap;
+        font-size: 0.85rem;
+    }
+    
+    .article-full .article-body {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    
+    .article-full .article-body h2 {
+        font-size: 1.5rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .article-full .article-body h3 {
+        font-size: 1.25rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .article-full .article-body p {
+        margin-bottom: 1.25rem;
+    }
+    
+    .article-full .article-body ul,
+    .article-full .article-body ol {
+        margin-left: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .article-full .article-body li {
+        margin-bottom: 0.75rem;
+    }
+    
+    .article-full .article-body img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .article-full .article-body pre {
+        overflow-x: auto;
+        padding: 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .article-navigation {
+        margin-top: 2rem;
+        text-align: center;
+    }
+    
+    .article-navigation .btn {
+        width: 100%;
+        max-width: 300px;
     }
     
     .modal-content {
         margin: 0;
         border-radius: 0;
+    }
+    
+    /* Mobile navbar improvements */
+    .navbar {
+        padding: 0.75rem 0;
+    }
+    
+    .nav-content {
+        padding: 0 1rem;
+    }
+    
+    .logo-text {
+        font-size: 1.1rem;
+    }
+    
+    .logo-img {
+        width: 35px;
+        height: 35px;
     }
 }
 
@@ -960,13 +1037,59 @@ section {
         font-size: 1.75rem;
     }
     
+    .article-full {
+        padding: 1rem;
+    }
+    
+    .article-full .article-title {
+        font-size: 1.5rem;
+    }
+    
+    .article-full .article-body {
+        font-size: 0.95rem;
+    }
+    
+    .article-full .article-body h2 {
+        font-size: 1.35rem;
+    }
+    
+    .article-full .article-body h3 {
+        font-size: 1.15rem;
+    }
+    
+    .article-full .article-header {
+        margin-bottom: 1.5rem;
+    }
+    
+    .article-tags {
+        margin-bottom: 1rem;
+    }
+    
+    .tag {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.75rem;
+    }
+    
     .filter-buttons {
         gap: 0.5rem;
+        flex-wrap: wrap;
     }
     
     .filter-btn {
         padding: 0.5rem 1rem;
         font-size: 0.875rem;
+    }
+    
+    /* Improve touch targets */
+    .btn {
+        min-height: 44px;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    .mobile-menu-toggle {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0.5rem;
     }
 }
 
