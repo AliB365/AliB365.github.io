@@ -420,23 +420,34 @@ $htmlContent = @"
             });
             
             // Sign in link
-            document.getElementById('comment-signin-link')?.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.getElementById('signin-btn')?.click();
-            });
+            const commentSigninLink = document.getElementById('comment-signin-link');
+            if (commentSigninLink) {
+                commentSigninLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const signinBtn = document.getElementById('signin-btn');
+                    if (signinBtn) signinBtn.click();
+                });
+            }
             
             // Post comment button
-            document.getElementById('post-comment-btn')?.addEventListener('click', postComment);
+            const postCommentBtn = document.getElementById('post-comment-btn');
+            if (postCommentBtn) {
+                postCommentBtn.addEventListener('click', postComment);
+            }
             
             // Character count
-            document.getElementById('comment-input')?.addEventListener('input', (e) => {
-                document.getElementById('comment-char-count').textContent = e.target.value.length;
-            });
+            const commentInput = document.getElementById('comment-input');
+            if (commentInput) {
+                commentInput.addEventListener('input', (e) => {
+                    const charCount = document.getElementById('comment-char-count');
+                    if (charCount) charCount.textContent = e.target.value.length;
+                });
+            }
         });
     </script>
 </body>
 </html>
-"@
+\"@
 
 # Write HTML file
 $htmlContent | Out-File -FilePath $htmlFile -Encoding UTF8
