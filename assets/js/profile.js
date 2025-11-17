@@ -158,10 +158,17 @@ export async function initProfilePage() {
     }
 
     // Update stats
-    document.getElementById('stat-streak')?.textContent = stats.streak;
-    document.getElementById('stat-articles')?.textContent = stats.articlesRead;
-    document.getElementById('stat-comments')?.textContent = stats.commentsPosted;
-    document.getElementById('stat-bookmarks')?.textContent = stats.bookmarks;
+    const statStreak = document.getElementById('stat-streak');
+    if (statStreak) statStreak.textContent = stats.streak;
+    
+    const statArticles = document.getElementById('stat-articles');
+    if (statArticles) statArticles.textContent = stats.articlesRead;
+    
+    const statComments = document.getElementById('stat-comments');
+    if (statComments) statComments.textContent = stats.commentsPosted;
+    
+    const statBookmarks = document.getElementById('stat-bookmarks');
+    if (statBookmarks) statBookmarks.textContent = stats.bookmarks;
 
     // Load bookmarks
     const bookmarks = await getUserBookmarks();

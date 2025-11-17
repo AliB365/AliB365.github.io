@@ -85,7 +85,7 @@ function displayComments(comments) {
                 </div>
                 <div class="comment-actions">
                     <span class="comment-date">${formatCommentDate(comment.timestamp)}</span>
-                    ${comment.userId === window.currentUser?.uid ? `
+                    ${comment.userId === (window.currentUser ? window.currentUser.uid : null) ? `
                         <button class="comment-delete-btn" onclick="deleteComment('${comment.id}')">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="3 6 5 6 21 6"></polyline>
