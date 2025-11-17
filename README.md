@@ -231,19 +231,51 @@ service cloud.firestore {
     // Comments collection
     match /comments/{commentId} {
       allow read: if true;
-      allow create: if request.auth != null;
-      allow update, delete: if request.auth != null && 
-        (request.auth.uid == resource.data.userId || 
-         request.auth.uid == get(/databases/$(database)/documents/comments/$(commentId)).data.userId);
+      allow create: if request.auth != null 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.postId is string
+        && request.resource.data.text is string;
+      allow delete: if request.auth != null && resource.data.userId == request.auth.uid;
     }
     
-    // Likes, bookmarks, reading history
-    match /{collection}/{docId} {
+    // Likes collection
+    match /likes/{likeId} {
       allow read: if true;
-      allow write: if request.auth != null && 
-        (collection == 'likes' || collection == 'bookmarks' || 
-         collection == 'readingHistory' || collection == 'userStats' || 
-         collection == 'achievements' || collection == 'preferences');
+      allow write: if request.auth != null 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.postId is string;
+    }
+    
+    // Bookmarks collection
+    match /bookmarks/{bookmarkId} {
+      allow read: if true;
+      allow write: if request.auth != null 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.postId is string;
+    }
+    
+    // Reading history
+    match /readingHistory/{docId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow write: if request.auth != null && request.resource.data.userId == request.auth.uid;
+    }
+    
+    // User stats
+    match /userStats/{userId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Achievements
+    match /achievements/{docId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow write: if request.auth != null && request.resource.data.userId == request.auth.uid;
+    }
+    
+    // Preferences
+    match /preferences/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if request.auth != null && request.auth.uid == userId;
     }
   }
 }

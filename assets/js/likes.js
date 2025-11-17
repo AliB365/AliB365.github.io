@@ -1,5 +1,5 @@
 // Likes and Bookmarks System
-import { getFirestore, doc, setDoc, deleteDoc, getDoc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { getFirestore, doc, setDoc, deleteDoc, getDoc, collection, query, where, getDocs, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
 let db = null;
 
@@ -25,7 +25,7 @@ export async function likePost(postId) {
         await setDoc(likeRef, {
             userId: window.currentUser.uid,
             postId: postId,
-            timestamp: new Date()
+            createdAt: serverTimestamp()
         });
         return true;
     } catch (error) {
@@ -95,7 +95,7 @@ export async function bookmarkPost(postId, postTitle) {
             userId: window.currentUser.uid,
             postId: postId,
             postTitle: postTitle,
-            timestamp: new Date()
+            createdAt: serverTimestamp()
         });
         return true;
     } catch (error) {

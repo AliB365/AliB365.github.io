@@ -1,5 +1,5 @@
 // Profile, Dashboard, and User Stats System
-import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, orderBy, limit, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 import { getUserBookmarks } from './likes.js';
 
 let db = null;
@@ -23,7 +23,7 @@ export async function trackReading(postId, postTitle) {
             userId: window.currentUser.uid,
             postId: postId,
             postTitle: postTitle,
-            timestamp: new Date(),
+            timestamp: serverTimestamp(),
             date: new Date().toISOString().split('T')[0]
         });
 
