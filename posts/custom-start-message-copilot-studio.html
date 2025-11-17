@@ -284,11 +284,12 @@
         
         // Get post ID from URL
         const postId = 'custom-start-message-copilot-studio';
+        const postTitle = 'Personalise Your AI: Changing the Start Message in Copilot Studio';
         
         // Wait for Firebase to initialize before running features
         function initializeFeatures() {
             // Initialize engagement features
-            initPostActions(postId);
+            initPostActions(postId, postTitle);
             initShareButtons();
             initProgressBar();
             initTableOfContents();

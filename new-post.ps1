@@ -370,11 +370,12 @@ $htmlContent = @"
         
         // Get post ID from slug
         const postId = '$slug';
+        const postTitle = '$title';
         
         // Wait for Firebase to initialize before running features
         function initializeFeatures() {
             // Initialize engagement features
-            initPostActions(postId);
+            initPostActions(postId, postTitle);
             initShareButtons();
             initProgressBar();
             initTableOfContents();

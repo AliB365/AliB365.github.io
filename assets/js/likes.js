@@ -158,46 +158,66 @@ export async function getUserBookmarks() {
 
 // Initialize like and bookmark buttons on post page
 export function initPostActions(postId, postTitle) {
-    const likeBtn = document.getElementById('like-btn');
-    const bookmarkBtn = document.getElementById('bookmark-btn');
+    const likeBtn = document.querySelector('.like-btn');
+    const bookmarkBtn = document.querySelector('.bookmark-btn');
 
-    if (!likeBtn || !bookmarkBtn) return;
+    if (!likeBtn || !bookmarkBtn) {
+        console.log('Like or bookmark button not found');
+        return;
+    }
 
-    // Check initial states
-    isPostLiked(postId).then(liked => {
-        if (liked) {
-            likeBtn.classList.add('active');
-        }
-    });
+    // Wait for Firebase auth to be ready
+    const initButtons = async () => {
+        // Check initial states
+        isPostLiked(postId).then(liked => {
+            if (liked) {
+                likeBtn.classList.add('active');
+            }
+        });
 
-    isPostBookmarked(postId).then(bookmarked => {
-        if (bookmarked) {
-            bookmarkBtn.classList.add('active');
-        }
-    });
+        isPostBookmarked(postId).then(bookmarked => {
+            if (bookmarked) {
+                bookmarkBtn.classList.add('active');
+            }
+        });
 
-    // Get and display like count
-    getLikeCount(postId).then(count => {
-        const likeCount = likeBtn.querySelector('.like-count');
-        if (likeCount) {
-            likeCount.textContent = count;
+        // Get and display like count
+        getLikeCount(postId).then(count => {
+            const likeCount = likeBtn.querySelector('.like-count');
+            if (likeCount) {
+                likeCount.textContent = count;
+            }
+        });
+    };
+
+    // Initialize when auth is ready
+    if (window.currentUser) {
+        initButtons();
+    }
+    
+    // Also listen for auth changes
+    window.addEventListener('auth-state-changed', () => {
+        if (window.currentUser) {
+            initButtons();
         }
     });
 
     // Like button handler
-    likeBtn.addEventListener('click', async () => {
+    likeBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
         if (!window.currentUser) {
-            alert('Please sign in to like posts');
+            const signinBtn = document.getElementById('signin-btn');
+            if (signinBtn) signinBtn.click();
             return;
         }
 
         const isLiked = likeBtn.classList.contains('active');
         if (isLiked) {
-            await unlikePost(postId);
-            likeBtn.classList.remove('active');
+            const success = await unlikePost(postId);
+            if (success) likeBtn.classList.remove('active');
         } else {
-            await likePost(postId);
-            likeBtn.classList.add('active');
+            const success = await likePost(postId);
+            if (success) likeBtn.classList.add('active');
         }
 
         // Update count
@@ -209,19 +229,21 @@ export function initPostActions(postId, postTitle) {
     });
 
     // Bookmark button handler
-    bookmarkBtn.addEventListener('click', async () => {
+    bookmarkBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
         if (!window.currentUser) {
-            alert('Please sign in to bookmark posts');
+            const signinBtn = document.getElementById('signin-btn');
+            if (signinBtn) signinBtn.click();
             return;
         }
 
         const isBookmarked = bookmarkBtn.classList.contains('active');
         if (isBookmarked) {
-            await removeBookmark(postId);
-            bookmarkBtn.classList.remove('active');
+            const success = await removeBookmark(postId);
+            if (success) bookmarkBtn.classList.remove('active');
         } else {
-            await bookmarkPost(postId, postTitle);
-            bookmarkBtn.classList.add('active');
+            const success = await bookmarkPost(postId, postTitle);
+            if (success) bookmarkBtn.classList.add('active');
         }
     });
 }
