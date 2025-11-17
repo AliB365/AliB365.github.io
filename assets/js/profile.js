@@ -18,13 +18,24 @@ export async function trackReading(postId, postTitle) {
     if (!initFirestore() || !window.currentUser) return false;
 
     try {
-        const readingRef = doc(db, 'readingHistory', `${window.currentUser.uid}_${postId}_${Date.now()}`);
+        const today = new Date().toISOString().split('T')[0];
+        const readingId = `${window.currentUser.uid}_${postId}_${today}`;
+        const readingRef = doc(db, 'readingHistory', readingId);
+        
+        // Check if already tracked today
+        const existingDoc = await getDoc(readingRef);
+        if (existingDoc.exists()) {
+            console.log('Already tracked this post today');
+            return true; // Already tracked today, no need to write again
+        }
+        
+        // Track new reading for today
         await setDoc(readingRef, {
             userId: window.currentUser.uid,
             postId: postId,
             postTitle: postTitle,
             timestamp: serverTimestamp(),
-            date: new Date().toISOString().split('T')[0]
+            date: today
         });
 
         // Update streak
