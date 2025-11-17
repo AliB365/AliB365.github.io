@@ -3,6 +3,7 @@
 const regularMascots = [
     'mascot.png',
     'mascot2.png',
+    'mascot3.png',
     // Add more regular mascots here:
     // 'mascot3.png',
     // 'mascot4.png',
