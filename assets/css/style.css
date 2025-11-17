@@ -1699,16 +1699,6 @@ section {
     margin-bottom: 2rem;
 }
 
-@media (min-width: 768px) {
-    .toc-container {
-        position: sticky;
-        top: 80px;
-        max-height: calc(100vh - 120px);
-        overflow-y: auto;
-        z-index: 10;
-    }
-}
-
 .toc-title {
     font-size: 1.1rem;
     font-weight: 600;

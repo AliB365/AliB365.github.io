@@ -9,6 +9,7 @@ import {
 } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
 // Initialize Firebase
 let auth;
@@ -20,17 +21,33 @@ function initFirebase() {
         const app = initializeApp(window.firebaseConfig);
         window.firebaseApp = app; // Make Firebase app available globally
         auth = getAuth(app);
+        const db = getFirestore(app);
         
         // Listen for auth state changes
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             currentUser = user;
             window.currentUser = user; // Make available globally for comments
+            
+            let displayName = user ? (user.displayName || user.email.split('@')[0]) : null;
+            
+            // Try to load custom display name from Firestore
+            if (user) {
+                try {
+                    const userRef = doc(db, 'users', user.uid);
+                    const userDoc = await getDoc(userRef);
+                    if (userDoc.exists() && userDoc.data().displayName) {
+                        displayName = userDoc.data().displayName;
+                    }
+                } catch (error) {
+                    console.log('Could not load custom display name:', error);
+                }
+            }
             
             if (authManagerInstance) {
                 authManagerInstance.user = user ? {
                     id: user.uid,
                     email: user.email,
-                    name: user.displayName || user.email.split('@')[0]
+                    name: displayName
                 } : null;
                 authManagerInstance.notifyListeners();
             }
