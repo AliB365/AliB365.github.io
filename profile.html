@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - Autonomous Agentics</title>
-    <link rel="preload" href="../assets/css/style.css" as="style">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="preload" href="assets/css/style.css" as="style">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -265,28 +265,47 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="../firebase-config.js"></script>
-    <script type="module" src="../assets/js/auth.js"></script>
+    <script src="firebase-config.js"></script>
+    <script type="module" src="assets/js/auth.js"></script>
     <script type="module">
-        import { initProfilePage, initUserProfileForm } from '../assets/js/profile.js';
-        import { initAchievementsDisplay } from '../assets/js/achievements.js';
-        import { initPreferencesPanel, initPreferences } from '../assets/js/preferences.js';
+        import { initProfilePage, initUserProfileForm } from './assets/js/profile.js';
+        import { initAchievementsDisplay } from './assets/js/achievements.js';
+        import { initPreferencesPanel, initPreferences } from './assets/js/preferences.js';
 
         // Wait for auth state
-        document.addEventListener('auth-state-changed', async () => {
+        document.addEventListener('auth-state-changed', async (event) => {
+            console.log('Auth state changed on profile page:', event.detail);
             if (window.currentUser) {
-                await initProfilePage();
-                await initAchievementsDisplay();
-                initPreferencesPanel();
-                initUserProfileForm();
+                console.log('User authenticated, initializing profile...');
+                try {
+                    await initProfilePage();
+                    console.log('Profile page initialized');
+                    await initAchievementsDisplay();
+                    console.log('Achievements initialized');
+                    initPreferencesPanel();
+                    console.log('Preferences initialized');
+                    initUserProfileForm();
+                    console.log('Profile form initialized');
+                } catch (error) {
+                    console.error('Error initializing profile:', error);
+                }
             } else {
+                console.log('No user authenticated, redirecting to home');
                 // Redirect to home if not signed in
-                window.location.href = '/index.html';
+                window.location.href = 'index.html';
             }
         });
 
         // Apply saved preferences
         initPreferences();
+        
+        // Check if user is already authenticated
+        if (window.currentUser) {
+            console.log('User already authenticated, triggering initialization');
+            document.dispatchEvent(new CustomEvent('auth-state-changed', {
+                detail: { user: window.currentUser }
+            }));
+        }
     </script>
 </body>
 </html>

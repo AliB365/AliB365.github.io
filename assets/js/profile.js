@@ -147,22 +147,38 @@ export async function getReadingHistory() {
 
 // Initialize profile page
 export async function initProfilePage() {
+    console.log('initProfilePage called, currentUser:', window.currentUser);
+    
     if (!window.currentUser) {
-        window.location.href = '/index.html';
+        console.log('No current user, redirecting...');
+        window.location.href = 'index.html';
         return;
     }
 
+    if (!initFirestore()) {
+        console.error('Failed to initialize Firestore');
+        return;
+    }
+
+    console.log('Loading user profile...');
     // Load user profile first
     const userProfile = await loadUserProfile();
+    console.log('User profile loaded:', userProfile);
 
+    console.log('Getting user stats...');
     const stats = await getUserStats();
-    if (!stats) return;
+    console.log('User stats:', stats);
+    if (!stats) {
+        console.error('Failed to get user stats');
+        return;
+    }
 
     // Update profile info
     const profileEmail = document.getElementById('profile-email');
     const profileAvatar = document.getElementById('profile-avatar');
     const profileName = document.querySelector('.profile-details h1');
     
+    console.log('Updating profile UI elements...');
     if (profileEmail) {
         profileEmail.textContent = window.currentUser.email;
     }
@@ -202,18 +218,20 @@ export async function initProfilePage() {
     const statBookmarks = document.getElementById('stat-bookmarks');
     if (statBookmarks) statBookmarks.textContent = stats.bookmarks;
 
+    console.log('Loading bookmarks...');
     // Load bookmarks
     const bookmarks = await getUserBookmarks();
+    console.log('Bookmarks loaded:', bookmarks.length);
     const bookmarkList = document.getElementById('bookmark-list');
     if (bookmarkList) {
         if (bookmarks.length === 0) {
             bookmarkList.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No bookmarks yet</p>';
         } else {
             bookmarkList.innerHTML = bookmarks.map(bookmark => `
-                <div class="bookmark-item" onclick="window.location.href='/posts/${bookmark.postId}.html'">
+                <div class="bookmark-item" onclick="window.location.href='posts/${bookmark.postId}.html'">
                     <div>
                         <div class="bookmark-item-title">${bookmark.postTitle}</div>
-                        <div class="bookmark-item-date">${new Date(bookmark.timestamp.seconds * 1000).toLocaleDateString()}</div>
+                        <div class="bookmark-item-date">${bookmark.createdAt ? new Date(bookmark.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</div>
                     </div>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M9 18l6-6-6-6"/>
@@ -223,23 +241,27 @@ export async function initProfilePage() {
         }
     }
 
+    console.log('Loading reading history...');
     // Load reading history
     const history = await getReadingHistory();
+    console.log('Reading history loaded:', history.length);
     const historyList = document.getElementById('history-list');
     if (historyList) {
         if (history.length === 0) {
             historyList.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No reading history yet</p>';
         } else {
             historyList.innerHTML = history.map(item => `
-                <div class="bookmark-item" onclick="window.location.href='/posts/${item.postId}.html'">
+                <div class="bookmark-item" onclick="window.location.href='posts/${item.postId}.html'">
                     <div>
                         <div class="bookmark-item-title">${item.postTitle}</div>
-                        <div class="bookmark-item-date">${new Date(item.timestamp.seconds * 1000).toLocaleDateString()}</div>
+                        <div class="bookmark-item-date">${item.timestamp ? new Date(item.timestamp.seconds * 1000).toLocaleDateString() : 'N/A'}</div>
                     </div>
                 </div>
             `).join('');
         }
     }
+    
+    console.log('Profile page initialization complete');
 }
 
 // Load user profile information
