@@ -265,16 +265,16 @@
         </div>
     </footer>
 
-    <script src="../firebase-config.js" defer></script>
-    <script type="module" src="../assets/js/auth.js" defer></script>
-    <script type="module" src="../assets/js/comments.js" defer></script>
-    <script type="module" src="../assets/js/likes.js" defer></script>
-    <script type="module" src="../assets/js/progress-bar.js" defer></script>
-    <script type="module" src="../assets/js/toc.js" defer></script>
-    <script type="module" src="../assets/js/profile.js" defer></script>
-    <script type="module" src="../assets/js/achievements.js" defer></script>
-    <script type="module" src="../assets/js/preferences.js" defer></script>
-    <script src="../assets/js/shared.js" defer></script>
+    <script src="../firebase-config.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script type="module" src="../assets/js/comments.js"></script>
+    <script type="module" src="../assets/js/likes.js"></script>
+    <script type="module" src="../assets/js/progress-bar.js"></script>
+    <script type="module" src="../assets/js/toc.js"></script>
+    <script type="module" src="../assets/js/profile.js"></script>
+    <script type="module" src="../assets/js/achievements.js"></script>
+    <script type="module" src="../assets/js/preferences.js"></script>
+    <script src="../assets/js/shared.js"></script>
     <script type="module">
         import { initComments, postComment } from '../assets/js/comments.js';
         import { initPostActions, initShareButtons } from '../assets/js/likes.js';
@@ -282,41 +282,55 @@
         import { initTableOfContents } from '../assets/js/toc.js';
         import { trackReading } from '../assets/js/profile.js';
         import { checkAchievements } from '../assets/js/achievements.js';
-        import { getCurrentUser } from '../assets/js/shared.js';
         
         // Get post ID from URL
         const postId = 'custom-start-message-copilot-studio';
         
-        // Initialize all features when page loads
-        window.addEventListener('DOMContentLoaded', async () => {
+        // Wait for Firebase to initialize before running features
+        function initializeFeatures() {
             // Initialize engagement features
             initPostActions(postId);
             initShareButtons();
             initProgressBar();
             initTableOfContents();
             
-            // Track reading and check achievements
-            const user = await getCurrentUser();
-            if (user) {
-                trackReading(user.uid, postId, 'Personalise Your AI: Changing the Start Message in Copilot Studio');
-                checkAchievements(user.uid);
-            }
-            
             // Initialize comments
             initComments(postId);
-            initComments(postId);
+        }
+        
+        // Initialize all features when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            // Check if Firebase is ready
+            if (window.firebaseApp) {
+                initializeFeatures();
+            } else {
+                // Wait for Firebase to initialize
+                const checkFirebase = setInterval(() => {
+                    if (window.firebaseApp) {
+                        clearInterval(checkFirebase);
+                        initializeFeatures();
+                    }
+                }, 100);
+            }
             
-            // Update comment form visibility based on auth state
-            window.addEventListener('auth-state-changed', (e) => {
+            // Listen for auth state changes to track reading
+            window.addEventListener('auth-state-changed', async (e) => {
+                const user = e.detail.user;
+                
+                // Update comment form visibility
                 const authPrompt = document.getElementById('comment-auth-prompt');
                 const formContainer = document.getElementById('comment-form-container');
                 
-                if (e.detail.user) {
-                    authPrompt.style.display = 'none';
-                    formContainer.style.display = 'block';
+                if (user) {
+                    if (authPrompt) authPrompt.style.display = 'none';
+                    if (formContainer) formContainer.style.display = 'block';
+                    
+                    // Track reading and check achievements
+                    trackReading(user.uid, postId, 'Personalise Your AI: Changing the Start Message in Copilot Studio');
+                    checkAchievements(user.uid);
                 } else {
-                    authPrompt.style.display = 'block';
-                    formContainer.style.display = 'none';
+                    if (authPrompt) authPrompt.style.display = 'block';
+                    if (formContainer) formContainer.style.display = 'none';
                 }
             });
             

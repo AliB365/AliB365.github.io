@@ -4,30 +4,65 @@ A modern, dynamic blog website for exploring autonomous agents, AI systems, and 
 
 ## 🤖 Features
 
+### Core Blog Features
 - **Dynamic Content Loading**: Blog posts are loaded from a JSON file, making content management simple
 - **Responsive Design**: Fully responsive layout that works on desktop, tablet, and mobile devices
 - **Category Filtering**: Filter posts by AI, Automation, Agents, and Tutorials
 - **Featured Posts**: Highlight your most important content
-- **Modal Article View**: Read full articles in a clean, focused modal overlay
+- **Individual Post Pages**: Each post has its own SEO-optimized HTML page
 - **Pagination**: Automatically handles large numbers of posts
 - **Modern UI**: Beautiful design with smooth animations and the Autonomous Agentic brand colors
+
+### Engagement Features
+- **Like & Bookmark System**: Save favorite posts and track what you've liked
+- **Reading Progress Bar**: Visual indicator showing how far through an article you've read
+- **Share Buttons**: Share articles on Twitter, LinkedIn, Facebook, or copy the link
+- **Table of Contents**: Auto-generated TOC for easy navigation in long articles
+- **Related Posts**: Dynamically suggested articles based on tags
+- **Comments System**: Threaded comments with replies (requires Firebase)
+
+### User Features
+- **Google Authentication**: Sign in with Google to access personalized features
+- **User Profile**: Personal dashboard showing reading stats and history
+- **Reading Tracking**: Automatic tracking of articles read and time spent
+- **Reading Streak**: Gamified daily reading streak counter
+- **Achievement System**: Unlock 9 different badges for engagement milestones
+- **Personal Stats**: Track total articles read, comments posted, and bookmarks saved
+- **Preferences**: Customize font size and notification settings
+- **Reading History**: View all articles you've read with timestamps
 
 ## 📁 Project Structure
 
 ```
 AutonomousAgentics/
 ├── index.html              # Main HTML file
+├── profile.html            # User profile/dashboard page
 ├── package.json            # Project configuration
+├── firebase-config.js      # Firebase configuration
+├── new-post.ps1           # PowerShell script to generate new posts
 ├── assets/
 │   ├── css/
-│   │   └── style.css      # All styles
+│   │   └── style.css      # All styles (including engagement features)
 │   ├── js/
-│   │   └── blog.js        # Blog functionality
+│   │   ├── blog.js        # Blog listing functionality
+│   │   ├── article.js     # Article display
+│   │   ├── shared.js      # Firebase utilities
+│   │   ├── auth.js        # Authentication
+│   │   ├── comments.js    # Comment system
+│   │   ├── likes.js       # Like/bookmark/share system
+│   │   ├── progress-bar.js # Reading progress
+│   │   ├── toc.js         # Table of contents generator
+│   │   ├── profile.js     # User stats and tracking
+│   │   ├── achievements.js # Badge system
+│   │   └── preferences.js  # User settings
 │   └── images/
 │       ├── mascot.png     # Your robot mascot (full body)
 │       └── favicon.png    # Your robot favicon (head only)
 ├── data/
-│   └── posts.json         # Blog posts content
+│   └── posts-index.json   # Blog posts index
+├── posts/
+│   ├── post-template.html # Template for new posts
+│   └── *.html            # Individual blog post pages
 └── README.md              # This file
 ```
 
@@ -157,6 +192,96 @@ Edit `assets/css/style.css` and modify the CSS variables at the top:
 
 The HTML structure is modular. You can add new sections by following the existing pattern in `index.html`.
 
+## 🔥 Firebase Setup (Optional but Recommended)
+
+To enable all engagement features (likes, bookmarks, comments, reading tracking, achievements), you'll need to set up Firebase:
+
+### 1. Create a Firebase Project
+
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Click "Add project" and follow the setup wizard
+3. Enable Google Analytics (optional)
+
+### 2. Enable Authentication
+
+1. In Firebase Console, go to **Authentication** → **Sign-in method**
+2. Enable **Google** provider
+3. Add your domain to authorized domains
+
+### 3. Create Firestore Database
+
+1. Go to **Firestore Database** → **Create database**
+2. Start in **production mode**
+3. Choose a location close to your users
+
+### 4. Set Up Security Rules
+
+Go to **Firestore Database** → **Rules** and paste:
+
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users collection
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Comments collection
+    match /comments/{commentId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null && 
+        (request.auth.uid == resource.data.userId || 
+         request.auth.uid == get(/databases/$(database)/documents/comments/$(commentId)).data.userId);
+    }
+    
+    // Likes, bookmarks, reading history
+    match /{collection}/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+        (collection == 'likes' || collection == 'bookmarks' || 
+         collection == 'readingHistory' || collection == 'userStats' || 
+         collection == 'achievements' || collection == 'preferences');
+    }
+  }
+}
+```
+
+### 5. Create Firestore Indexes
+
+Go to **Firestore Database** → **Indexes** → **Composite** and create these indexes:
+
+1. **Collection**: `comments`, **Fields**: `postId` (Ascending), `createdAt` (Descending)
+2. **Collection**: `likes`, **Fields**: `postId` (Ascending), `createdAt` (Descending)
+3. **Collection**: `bookmarks`, **Fields**: `userId` (Ascending), `createdAt` (Descending)
+4. **Collection**: `readingHistory`, **Fields**: `userId` (Ascending), `timestamp` (Descending)
+
+### 6. Configure Your App
+
+1. In Firebase Console, go to **Project Settings** → **Your apps**
+2. Click the web icon (</>) to add a web app
+3. Register your app and copy the config object
+4. Create `firebase-config.js` in your project root:
+
+```javascript
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "YOUR-API-KEY",
+  authDomain: "YOUR-PROJECT.firebaseapp.com",
+  projectId: "YOUR-PROJECT-ID",
+  storageBucket: "YOUR-PROJECT.appspot.com",
+  messagingSenderId: "YOUR-SENDER-ID",
+  appId: "YOUR-APP-ID"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+```
+
+**Without Firebase**: The blog will still work, but engagement features (likes, comments, tracking) won't be functional.
+
 ## 🌐 Deployment
 
 ### GitHub Pages
@@ -165,6 +290,7 @@ The HTML structure is modular. You can add new sections by following the existin
 2. Go to repository Settings → Pages
 3. Select your branch and root folder
 4. Your site will be available at `https://yourusername.github.io/repository-name`
+5. **Note**: Add your GitHub Pages domain to Firebase authorized domains
 
 ### Netlify
 
@@ -208,10 +334,11 @@ The HTML structure is modular. You can add new sections by following the existin
 ## 📚 Technologies Used
 
 - **HTML5**: Semantic markup
-- **CSS3**: Modern styling with CSS Grid and Flexbox
-- **Vanilla JavaScript**: No frameworks, pure JS for performance
+- **CSS3**: Modern styling with CSS Grid, Flexbox, and CSS Variables
+- **JavaScript ES6+**: Modular JavaScript with ES6 imports
+- **Firebase**: Backend services (Authentication, Firestore Database)
 - **Google Fonts**: Inter font family
-- **JSON**: Content management
+- **JSON**: Content management and data structure
 
 ## 🤝 Contributing
 
@@ -228,10 +355,12 @@ MIT License - feel free to use and modify as needed.
 ## 🎯 Next Steps
 
 1. **Add Your Images**: Save `mascot.png` and `favicon.png` to `assets/images/`
-2. **Customize Content**: Edit the About section in `index.html`
-3. **Add Social Links**: Update the social media links in the Contact section
-4. **Create Your First Post**: Run `.\new-post.ps1` to generate a new blog post
-5. **Deploy**: Share your blog with the world!
+2. **Set Up Firebase**: Follow the Firebase Setup section above to enable engagement features
+3. **Customize Content**: Edit the About section in `index.html`
+4. **Add Social Links**: Update the social media links in the Contact section
+5. **Create Your First Post**: Run `.\new-post.ps1` to generate a new blog post with all features
+6. **Test Features**: Sign in with Google and try liking, bookmarking, and commenting
+7. **Deploy**: Share your blog with the world!
 
 ---
 
