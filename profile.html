@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Autonomous Agentics</title>
+    <link rel="preload" href="../assets/css/style.css" as="style">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/images/logo.png" alt="Logo" class="logo-img" width="40" height="40">
+                    <span class="logo-text">Autonomous Agentics</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#blog">Blog</a></li>
+                    <li><a href="profile.html" class="active">Profile</a></li>
+                </ul>
+                <div id="auth-nav-container"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Page -->
+    <div class="profile-page">
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-info">
+                    <div class="profile-avatar" id="profile-avatar">U</div>
+                    <div class="profile-details">
+                        <h1>My Profile</h1>
+                        <p class="profile-email" id="profile-email">Loading...</p>
+                    </div>
+                </div>
+
+                <div class="profile-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-streak">0</div>
+                        <div class="stat-label">Day Streak 🔥</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-articles">0</div>
+                        <div class="stat-label">Articles Read</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-comments">0</div>
+                        <div class="stat-label">Comments Posted</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-bookmarks">0</div>
+                        <div class="stat-label">Bookmarks</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements Section -->
+            <div class="achievements-section">
+                <h2 class="section-title-small">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="7"></circle>
+                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                    Achievements
+                </h2>
+                <div class="achievements-grid" id="achievements-grid">
+                    <!-- Achievements will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Bookmarks Section -->
+                <div class="dashboard-section">
+                    <h2 class="section-title-small">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"></path>
+                        </svg>
+                        Saved Articles
+                    </h2>
+                    <div class="bookmark-list" id="bookmark-list">
+                        <p style="color: var(--text-secondary); text-align: center; padding: 2rem;">Loading...</p>
+                    </div>
+                </div>
+
+                <!-- Reading History Section -->
+                <div class="dashboard-section">
+                    <h2 class="section-title-small">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        Recent Activity
+                    </h2>
+                    <div class="bookmark-list" id="history-list">
+                        <p style="color: var(--text-secondary); text-align: center; padding: 2rem;">Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preferences Section -->
+            <div class="preferences-panel">
+                <h2 class="section-title-small">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6m8.66-10l-5.2 3m-2.92 1.68L7.34 17M23 12h-6m-6 0H1m17.66 5l-5.2-3m-2.92-1.68L4.34 7"></path>
+                    </svg>
+                    Preferences
+                </h2>
+
+                <div class="preference-group">
+                    <div class="preference-label">
+                        <div>
+                            <div class="preference-title">Reading Font Size</div>
+                            <div class="preference-description">Adjust the text size for articles</div>
+                        </div>
+                    </div>
+                    <div class="font-size-control">
+                        <span>14px</span>
+                        <input type="range" id="font-size-input" min="14" max="22" step="1" value="16">
+                        <span id="font-size-value">16px</span>
+                    </div>
+                </div>
+
+                <div class="preference-group">
+                    <div class="preference-label">
+                        <div>
+                            <div class="preference-title">Email Notifications</div>
+                            <div class="preference-description">Receive email updates about new posts</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="email-notifications">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="preference-group">
+                    <div class="preference-label">
+                        <div>
+                            <div class="preference-title">Comment Notifications</div>
+                            <div class="preference-description">Get notified when someone replies to your comments</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="comment-notifications">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="preference-group">
+                    <div class="preference-label">
+                        <div>
+                            <div class="preference-title">Achievement Notifications</div>
+                            <div class="preference-description">Show notifications when you unlock achievements</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="achievement-notifications">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Autonomous Agentics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../firebase-config.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script type="module">
+        import { initProfilePage } from '../assets/js/profile.js';
+        import { initAchievementsDisplay } from '../assets/js/achievements.js';
+        import { initPreferencesPanel, initPreferences } from '../assets/js/preferences.js';
+
+        // Wait for auth state
+        document.addEventListener('auth-state-changed', async () => {
+            if (window.currentUser) {
+                await initProfilePage();
+                await initAchievementsDisplay();
+                initPreferencesPanel();
+            }
+        });
+
+        // Apply saved preferences
+        initPreferences();
+    </script>
+</body>
+</html>
