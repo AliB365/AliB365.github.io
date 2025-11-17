@@ -5,7 +5,9 @@ import {
     signInWithEmailAndPassword,
     signOut,
     onAuthStateChanged,
-    updateProfile
+    updateProfile,
+    setPersistence,
+    browserLocalPersistence
 } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
@@ -16,12 +18,19 @@ let auth;
 let currentUser = null;
 
 // Wait for config to load
-function initFirebase() {
+async function initFirebase() {
     if (window.firebaseConfig) {
         const app = initializeApp(window.firebaseConfig);
         window.firebaseApp = app; // Make Firebase app available globally
         auth = getAuth(app);
         const db = getFirestore(app);
+        
+        // Set auth persistence for faster subsequent loads
+        try {
+            await setPersistence(auth, browserLocalPersistence);
+        } catch (error) {
+            console.log('Auth persistence error:', error);
+        }
         
         // Listen for auth state changes
         onAuthStateChanged(auth, async (user) => {
@@ -30,19 +39,7 @@ function initFirebase() {
             
             let displayName = user ? (user.displayName || user.email.split('@')[0]) : null;
             
-            // Try to load custom display name from Firestore
-            if (user) {
-                try {
-                    const userRef = doc(db, 'users', user.uid);
-                    const userDoc = await getDoc(userRef);
-                    if (userDoc.exists() && userDoc.data().displayName) {
-                        displayName = userDoc.data().displayName;
-                    }
-                } catch (error) {
-                    console.log('Could not load custom display name:', error);
-                }
-            }
-            
+            // Update UI immediately with basic info
             if (authManagerInstance) {
                 authManagerInstance.user = user ? {
                     id: user.uid,
@@ -52,11 +49,35 @@ function initFirebase() {
                 authManagerInstance.notifyListeners();
             }
             
-            // Dispatch custom event for other components (like comments)
+            // Dispatch event immediately
             window.dispatchEvent(new CustomEvent('auth-state-changed', {
                 detail: { user: user }
             }));
+            
+            // Load custom display name from Firestore asynchronously (non-blocking)
+            if (user) {
+                loadCustomDisplayName(user, db);
+            }
         });
+    }
+}
+
+// Load custom display name without blocking UI
+async function loadCustomDisplayName(user, db) {
+    try {
+        const userRef = doc(db, 'users', user.uid);
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists() && userDoc.data().displayName) {
+            const displayName = userDoc.data().displayName;
+            
+            // Update auth manager with custom name
+            if (authManagerInstance && authManagerInstance.user) {
+                authManagerInstance.user.name = displayName;
+                authManagerInstance.notifyListeners();
+            }
+        }
+    } catch (error) {
+        console.log('Could not load custom display name:', error);
     }
 }
 
@@ -269,7 +290,9 @@ class AuthUI {
     initializeAuthButtons() {
         // Add auth buttons to navbar if they don't exist
         const navLinks = document.querySelector('.nav-links');
-        if (navLinks && !document.getElementById('auth-nav-container')) {
+        const existingContainer = document.getElementById('auth-nav-container');
+        
+        if (navLinks && !existingContainer) {
             const authNavHTML = `
                 <li id="auth-nav-container">
                     <div id="auth-buttons" class="auth-buttons">
@@ -292,6 +315,11 @@ class AuthUI {
                 </li>
             `;
             navLinks.insertAdjacentHTML('beforeend', authNavHTML);
+        }
+        
+        // If user is already authenticated when UI initializes, update immediately
+        if (this.authManager.user) {
+            this.updateUI(this.authManager.user);
         }
     }
 
@@ -483,10 +511,16 @@ class AuthUI {
     }
 
     updateUI(user) {
+        const authContainer = document.getElementById('auth-nav-container');
         const authButtons = document.getElementById('auth-buttons');
         const userMenu = document.getElementById('user-menu');
         const userNameDisplay = document.getElementById('user-name-display');
         const userEmailDisplay = document.getElementById('user-email-display');
+        
+        // Remove loading state
+        if (authContainer) {
+            authContainer.classList.remove('loading');
+        }
         
         if (user) {
             // Show user menu, hide auth buttons
@@ -504,6 +538,12 @@ class AuthUI {
 
 // Initialize auth UI when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
+    // Add loading state to auth container
+    const authContainer = document.getElementById('auth-nav-container');
+    if (authContainer) {
+        authContainer.classList.add('loading');
+    }
+    
     // Wait for firebase-config.js to load
     const waitForConfig = () => {
         return new Promise((resolve) => {
@@ -523,11 +563,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     await waitForConfig();
     
     // Initialize Firebase
-    initFirebase();
-    
-    // Small delay to ensure Firebase is fully initialized
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await initFirebase();
     
     // Initialize auth UI
     const authUI = new AuthUI(authManager);
+    
+    // Check if already authenticated (Firebase persistence will restore this)
+    if (auth && auth.currentUser) {
+        console.log('User already authenticated on load:', auth.currentUser.email);
+        window.currentUser = auth.currentUser;
+        const displayName = auth.currentUser.displayName || auth.currentUser.email.split('@')[0];
+        authManager.user = {
+            id: auth.currentUser.uid,
+            email: auth.currentUser.email,
+            name: displayName
+        };
+        authManager.notifyListeners();
+    }
 });

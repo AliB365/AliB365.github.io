@@ -42,7 +42,6 @@ body {
 
 /* ===== Navigation ===== */
 .navbar {
-    background-color: var(--darker-bg);
     padding: 1rem 0;
     position: sticky;
     top: 0;
@@ -148,6 +147,23 @@ body {
 #auth-nav-container {
     display: flex;
     align-items: center;
+    min-width: 100px;
+    min-height: 40px;
+}
+
+#auth-nav-container.loading::after {
+    content: '';
+    width: 80px;
+    height: 36px;
+    background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.1), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
 }
 
 /* ===== Hero Section ===== */
@@ -759,7 +775,7 @@ section {
 }
 
 .article-full {
-    max-width: 900px;
+    max-width: 1160px;
     margin: 0 auto;
     background: var(--card-bg);
     border-radius: 16px;
@@ -951,7 +967,6 @@ section {
     
     .article-full {
         padding: 1.5rem;
-        border-radius: 0;
         margin: 1rem 0;
     }
     
@@ -1350,7 +1365,7 @@ section {
     padding: 3rem 0;
     background: var(--darker-bg);
     border-top: 1px solid var(--border-color);
-    border-radius: 20px;
+    border-radius: 16px;
 }
 
 .comments-section {
@@ -1570,11 +1585,13 @@ section {
 
 /* ===== Share Buttons ===== */
 .share-section {
-    margin: 2rem 0;
+    margin: 2rem auto;
     padding: 1.5rem;
     background: var(--card-bg);
-    border-radius: 12px;
+    border-radius: 16px;
     border: 1px solid var(--border-color);
+    max-width: 1160px;
+    width: 100%;
 }
 
 .share-title {

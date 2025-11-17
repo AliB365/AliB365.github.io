@@ -81,6 +81,7 @@
                 <div class="article-header">
                     <div class="article-tags">
                         <span class="tag">tutorials</span>
+                        <span class="tag">agents</span>
                     </div>
                     <h1 class="article-title">Personalise Your AI: Changing the Start Message in Copilot Studio</h1>
                     <div class="article-meta">
@@ -170,6 +171,7 @@
                     <div class="article-tags-footer">
                         <strong>Tags:</strong>
                         <span class="tag">tutorials</span>
+                        <span class="tag">agents</span>
                     </div>
                 </div>
             </article>
@@ -276,6 +278,7 @@
     <script type="module" src="../assets/js/preferences.js"></script>
     <script src="../assets/js/shared.js"></script>
     <script type="module">
+        import { handleRelatedArticles } from '../assets/js/related.js';
         import { initComments, postComment } from '../assets/js/comments.js';
         import { initPostActions, initShareButtons } from '../assets/js/likes.js';
         import { initProgressBar } from '../assets/js/progress-bar.js';
@@ -286,6 +289,8 @@
         // Get post ID from URL
         const postId = 'custom-start-message-copilot-studio';
         const postTitle = 'Personalise Your AI: Changing the Start Message in Copilot Studio';
+        // Remove related section if no related articles
+        handleRelatedArticles('.related-posts-section', '#related-posts');
         
         // Wait for Firebase to initialize before running features
         function initializeFeatures() {

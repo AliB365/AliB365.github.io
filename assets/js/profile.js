@@ -264,8 +264,8 @@ export async function initProfilePage() {
     console.log('Profile page initialization complete');
 }
 
-// Load user profile information
-export async function loadUserProfile() {
+// Load user profile information (kept for potential future use)
+async function loadUserProfile() {
     if (!initFirestore() || !window.currentUser) return null;
 
     try {
@@ -279,123 +279,5 @@ export async function loadUserProfile() {
     } catch (error) {
         console.error('Error loading user profile:', error);
         return null;
-    }
-}
-
-// Save user profile information
-export async function saveUserProfile(profileData) {
-    if (!initFirestore() || !window.currentUser) return false;
-
-    try {
-        const userRef = doc(db, 'users', window.currentUser.uid);
-        await setDoc(userRef, {
-            ...profileData,
-            userId: window.currentUser.uid,
-            email: window.currentUser.email,
-            updatedAt: serverTimestamp()
-        }, { merge: true });
-        return true;
-    } catch (error) {
-        console.error('Error saving user profile:', error);
-        return false;
-    }
-}
-
-// Initialize user profile form
-export function initUserProfileForm() {
-    const displayNameInput = document.getElementById('display-name');
-    const bioInput = document.getElementById('bio');
-    const profilePictureInput = document.getElementById('profile-picture-url');
-    const websiteInput = document.getElementById('website');
-    const locationInput = document.getElementById('location');
-    const saveBtn = document.getElementById('save-profile-btn');
-    const saveStatus = document.getElementById('save-status');
-    const bioCount = document.getElementById('bio-count');
-
-    if (!displayNameInput || !saveBtn) return;
-
-    // Load existing profile data
-    loadUserProfile().then(profile => {
-        if (profile) {
-            if (displayNameInput) displayNameInput.value = profile.displayName || '';
-            if (bioInput) bioInput.value = profile.bio || '';
-            if (profilePictureInput) profilePictureInput.value = profile.profilePicture || '';
-            if (websiteInput) websiteInput.value = profile.website || '';
-            if (locationInput) locationInput.value = profile.location || '';
-            
-            // Update bio character count
-            if (bioInput && bioCount) {
-                bioCount.textContent = bioInput.value.length;
-            }
-        }
-    });
-
-    // Bio character count
-    if (bioInput && bioCount) {
-        bioInput.addEventListener('input', () => {
-            bioCount.textContent = bioInput.value.length;
-        });
-    }
-
-    // Save button handler
-    saveBtn.addEventListener('click', async () => {
-        if (!window.currentUser) {
-            showSaveStatus('Please sign in to save your profile', 'error');
-            return;
-        }
-
-        // Disable button during save
-        saveBtn.disabled = true;
-        showSaveStatus('Saving...', '');
-
-        const profileData = {
-            displayName: displayNameInput.value.trim(),
-            bio: bioInput ? bioInput.value.trim() : '',
-            profilePicture: profilePictureInput ? profilePictureInput.value.trim() : '',
-            website: websiteInput ? websiteInput.value.trim() : '',
-            location: locationInput ? locationInput.value.trim() : ''
-        };
-
-        const success = await saveUserProfile(profileData);
-        
-        saveBtn.disabled = false;
-        
-        if (success) {
-            showSaveStatus('✓ Profile saved successfully!', 'success');
-            
-            // Update profile header if display name or picture changed
-            updateProfileHeader(profileData);
-        } else {
-            showSaveStatus('✗ Failed to save profile. Please try again.', 'error');
-        }
-    });
-
-    function showSaveStatus(message, type) {
-        if (saveStatus) {
-            saveStatus.textContent = message;
-            saveStatus.className = `save-status ${type}`;
-            
-            if (type === 'success' || type === 'error') {
-                setTimeout(() => {
-                    saveStatus.textContent = '';
-                    saveStatus.className = 'save-status';
-                }, 3000);
-            }
-        }
-    }
-
-    function updateProfileHeader(profileData) {
-        const profileAvatar = document.getElementById('profile-avatar');
-        const profileName = document.querySelector('.profile-details h1');
-        
-        if (profileData.profilePicture && profileAvatar) {
-            profileAvatar.style.backgroundImage = `url(${profileData.profilePicture})`;
-            profileAvatar.style.backgroundSize = 'cover';
-            profileAvatar.textContent = '';
-        }
-        
-        if (profileData.displayName && profileName) {
-            profileName.textContent = profileData.displayName;
-        }
     }
 }
