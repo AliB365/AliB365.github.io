@@ -37,7 +37,7 @@ service cloud.firestore {
     
     // Reading history
     match /readingHistory/{docId} {
-      allow read: if request.auth != null && request.auth.uid == docId.split('_')[0];
+      allow read: if request.auth != null;
       allow create, update: if request.auth != null && request.resource.data.userId == request.auth.uid;
     }
     
