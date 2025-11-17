@@ -164,8 +164,14 @@ If you prefer to create posts manually:
                         <span class="tag">tag2</span>
                     </div>
                 </div>
+            </article>
+            
+            <div class="article-navigation">
+                <a href="../index.html#blog" class="btn btn-primary">← Back to Home</a>
+            </div>
 
-                <!-- Comments Section -->
+            <!-- Comments Section -->
+            <section class="comments-section-wrapper">
                 <div class="comments-section">
                     <h2 class="comments-title">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -201,11 +207,7 @@ If you prefer to create posts manually:
                         <p class="loading-message">Loading comments...</p>
                     </div>
                 </div>
-            </article>
-            
-            <div class="article-navigation">
-                <a href="../index.html#blog" class="btn btn-primary">← Back to Home</a>
-            </div>
+            </section>
         </div>
     </main>
 
