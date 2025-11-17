@@ -174,13 +174,19 @@ export async function initProfilePage() {
             profileAvatar.style.backgroundPosition = 'center';
             profileAvatar.textContent = '';
         } else {
-            const initial = window.currentUser.email.charAt(0).toUpperCase();
+            const initial = (userProfile && userProfile.displayName) 
+                ? userProfile.displayName.charAt(0).toUpperCase()
+                : window.currentUser.email.charAt(0).toUpperCase();
             profileAvatar.textContent = initial;
         }
     }
     
-    if (profileName && userProfile && userProfile.displayName) {
-        profileName.textContent = userProfile.displayName;
+    if (profileName) {
+        if (userProfile && userProfile.displayName) {
+            profileName.textContent = userProfile.displayName;
+        } else {
+            profileName.textContent = 'My Profile';
+        }
     }
 
     // Update stats
