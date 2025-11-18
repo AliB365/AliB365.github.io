@@ -236,36 +236,6 @@ export async function initProfilePage() {
             }
         }
     }
-
-    // Load reading history
-    const history = await getReadingHistory();
-    const historyList = document.getElementById('history-list');
-    if (historyList) {
-        if (history.length === 0) {
-            historyList.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No reading history yet</p>';
-        } else {
-            // Filter out invalid history items (ones with userId as postId)
-            const validHistory = history.filter(item => {
-                return item.postId && 
-                       !item.postId.includes('_') && 
-                       item.postId.length < 100 &&
-                       item.postId !== window.currentUser.uid;
-            });
-            
-            if (validHistory.length === 0) {
-                historyList.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No reading history yet</p>';
-            } else {
-                historyList.innerHTML = validHistory.map(item => `
-                    <div class="bookmark-item" onclick="window.location.href='posts/${item.postId}.html'" style="cursor: pointer;">
-                        <div>
-                            <div class="bookmark-item-title">${item.postTitle}</div>
-                            <div class="bookmark-item-date">${item.timestamp ? new Date(item.timestamp.seconds * 1000).toLocaleDateString() : 'N/A'}</div>
-                        </div>
-                    </div>
-                `).join('');
-            }
-        }
-    }
 }
 
 // Load user profile information (kept for potential future use)
