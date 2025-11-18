@@ -28,7 +28,7 @@ const seasonalMascots = {
         // 'mascot-sunglasses.png',
     ],
     autumn: [
-       'autumnMascot.png',
+       'autmnMascot.png',
         // 'mascot-halloween.png',
         // 'mascot-thanksgiving.png',
     ]

@@ -210,17 +210,30 @@ export async function initProfilePage() {
         if (bookmarks.length === 0) {
             bookmarkList.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No bookmarks yet</p>';
         } else {
-            bookmarkList.innerHTML = bookmarks.map(bookmark => `
-                <div class="bookmark-item" onclick="window.location.href='posts/${bookmark.postId}.html'">
-                    <div>
-                        <div class="bookmark-item-title">${bookmark.postTitle}</div>
-                        <div class="bookmark-item-date">${bookmark.createdAt ? new Date(bookmark.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</div>
+            // Filter out invalid bookmarks (ones with userId as postId)
+            const validBookmarks = bookmarks.filter(bookmark => {
+                // Check if postId looks like a slug (contains hyphens or is alphanumeric with reasonable length)
+                return bookmark.postId && 
+                       !bookmark.postId.includes('_') && 
+                       bookmark.postId.length < 100 &&
+                       bookmark.postId !== window.currentUser.uid;
+            });
+            
+            if (validBookmarks.length === 0) {
+                bookmarkList.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No bookmarks yet</p>';
+            } else {
+                bookmarkList.innerHTML = validBookmarks.map(bookmark => `
+                    <div class="bookmark-item" onclick="window.location.href='posts/${bookmark.postId}.html'" style="cursor: pointer;">
+                        <div>
+                            <div class="bookmark-item-title">${bookmark.postTitle}</div>
+                            <div class="bookmark-item-date">${bookmark.createdAt ? new Date(bookmark.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</div>
+                        </div>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
                     </div>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 18l6-6-6-6"/>
-                    </svg>
-                </div>
-            `).join('');
+                `).join('');
+            }
         }
     }
 
@@ -231,14 +244,26 @@ export async function initProfilePage() {
         if (history.length === 0) {
             historyList.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No reading history yet</p>';
         } else {
-            historyList.innerHTML = history.map(item => `
-                <div class="bookmark-item" onclick="window.location.href='posts/${item.postId}.html'">
-                    <div>
-                        <div class="bookmark-item-title">${item.postTitle}</div>
-                        <div class="bookmark-item-date">${item.timestamp ? new Date(item.timestamp.seconds * 1000).toLocaleDateString() : 'N/A'}</div>
+            // Filter out invalid history items (ones with userId as postId)
+            const validHistory = history.filter(item => {
+                return item.postId && 
+                       !item.postId.includes('_') && 
+                       item.postId.length < 100 &&
+                       item.postId !== window.currentUser.uid;
+            });
+            
+            if (validHistory.length === 0) {
+                historyList.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No reading history yet</p>';
+            } else {
+                historyList.innerHTML = validHistory.map(item => `
+                    <div class="bookmark-item" onclick="window.location.href='posts/${item.postId}.html'" style="cursor: pointer;">
+                        <div>
+                            <div class="bookmark-item-title">${item.postTitle}</div>
+                            <div class="bookmark-item-date">${item.timestamp ? new Date(item.timestamp.seconds * 1000).toLocaleDateString() : 'N/A'}</div>
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `).join('');
+            }
         }
     }
 }
