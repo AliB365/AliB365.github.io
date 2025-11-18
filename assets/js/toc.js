@@ -3,9 +3,11 @@ export function initTableOfContents() {
     const articleBody = document.querySelector('.article-body');
     if (!articleBody) return;
 
-    // Find all headings
+    // Find all headings and step list items
     const headings = articleBody.querySelectorAll('h2, h3');
-    if (headings.length === 0) return;
+    const stepListItems = articleBody.querySelectorAll('.steps-list > li');
+    
+    if (headings.length === 0 && stepListItems.length === 0) return;
 
     // Create TOC container
     const tocContainer = document.createElement('div');
@@ -35,23 +37,62 @@ export function initTableOfContents() {
     }
 
     const tocList = document.getElementById('toc-list');
+    const allElements = [];
+
+    // Collect all headings and steps in order
+    headings.forEach(heading => {
+        allElements.push({ element: heading, type: 'heading' });
+    });
+    
+    stepListItems.forEach(step => {
+        allElements.push({ element: step, type: 'step' });
+    });
+
+    // Sort by document order
+    allElements.sort((a, b) => {
+        return a.element.compareDocumentPosition(b.element) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+    });
 
     // Generate TOC items
-    headings.forEach((heading, index) => {
-        // Add ID to heading for anchor links
-        const headingId = `heading-${index}`;
-        heading.id = headingId;
+    allElements.forEach((item, index) => {
+        const element = item.element;
+        
+        // Add ID to element for anchor links
+        const elementId = `toc-item-${index}`;
+        element.id = elementId;
 
         // Create TOC item
         const li = document.createElement('li');
-        li.className = heading.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
+        
+        let displayText = '';
+        
+        if (item.type === 'heading') {
+            li.className = element.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
+            displayText = element.textContent;
+        } else {
+            // For steps, extract text from <strong> tag if available
+            li.className = 'toc-step';
+            const strongTag = element.querySelector('strong');
+            if (strongTag) {
+                displayText = strongTag.textContent;
+            } else {
+                // Fallback to first text content (up to first line break)
+                const textContent = element.textContent.trim();
+                displayText = textContent.split('\n')[0].substring(0, 60) + (textContent.length > 60 ? '...' : '');
+            }
+        }
         
         const link = document.createElement('a');
-        link.href = `#${headingId}`;
-        link.textContent = heading.textContent;
+        link.href = `#${elementId}`;
+        link.textContent = displayText;
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+            const offset = 120; // Scroll offset in pixels
+            window.scrollTo({ 
+                top: elementTop - offset, 
+                behavior: 'smooth' 
+            });
             
             // Update active state
             document.querySelectorAll('.toc-list a').forEach(a => a.classList.remove('active'));
@@ -81,7 +122,7 @@ export function initTableOfContents() {
         });
     }, observerOptions);
 
-    headings.forEach(heading => observer.observe(heading));
+    allElements.forEach(item => observer.observe(item.element));
 }
 
 // Collapsible sections

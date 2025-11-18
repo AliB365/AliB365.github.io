@@ -2,9 +2,9 @@
     {
         "id": "creating-your-first-ai-agent-in-copilot-studio",
         "title": "Creating your first AI Agent in Copilot Studio",
-        "excerpt": "A straightforward Guide on how to build your first BASIC Copilot Studio Agent",
+        "excerpt": "This is a simple, non-production agent built to demonstrate the initial steps of creating a copilot in Copilot Studio. It answers basic general questions and is used for testing and training only.",
         "url": "posts/creating-your-first-ai-agent-in-copilot-studio.html",
-        "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+        "image": "../assets/images/CreatingFirstAgent.avif",
         "date": "2025-11-18",
         "author": "Autonomous Agentic",
         "readTime": 5,

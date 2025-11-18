@@ -1778,6 +1778,26 @@ section {
     padding-left: 1rem;
 }
 
+.toc-list li.toc-step {
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.toc-list li.toc-step a {
+    color: var(--text-secondary);
+}
+
+.toc-list li.toc-step a:hover,
+.toc-list li.toc-step a.active {
+    color: var(--primary-color);
+}
+
+.toc-list li.toc-step a::before {
+    content: "→ ";
+    margin-right: 0.25rem;
+    opacity: 0.6;
+}
+
 /* ===== Collapsible Sections ===== */
 .collapsible-section {
     margin: 2rem 0;

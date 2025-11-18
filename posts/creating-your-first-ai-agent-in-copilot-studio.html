@@ -12,7 +12,7 @@
     <meta property="og:url" content="https://alib365.github.io/posts/creating-your-first-ai-agent-in-copilot-studio.html">
     <meta property="og:title" content="Creating your first AI Agent in Copilot Studio | Autonomous Agentic">
     <meta property="og:description" content="A straightforward Guide on how to build your first BASIC Copilot Studio Agent">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop">
+    <meta property="og:image" content="../assets/images/CreatingFirstAgent.avif">
     <meta property="og:article:published_time" content="2025-11-18">
     <meta property="og:article:author" content="Autonomous Agentic">
     
@@ -21,7 +21,7 @@
     <meta property="twitter:url" content="https://alib365.github.io/posts/creating-your-first-ai-agent-in-copilot-studio.html">
     <meta property="twitter:title" content="Creating your first AI Agent in Copilot Studio | Autonomous Agentic">
     <meta property="twitter:description" content="A straightforward Guide on how to build your first BASIC Copilot Studio Agent">
-    <meta property="twitter:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop">
+    <meta property="twitter:image" content="../assets/images/CreatingFirstAgent.avif">
     
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
     <!-- Preload critical resources -->
@@ -39,7 +39,7 @@
         "@type": "Article",
         "headline": "Creating your first AI Agent in Copilot Studio",
         "description": "A straightforward Guide on how to build your first BASIC Copilot Studio Agent",
-        "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+        "image": "../assets/images/CreatingFirstAgent.avif",
         "datePublished": "2025-11-18",
         "dateModified": "2025-11-18",
         "author": {
@@ -47,7 +47,7 @@
             "name": "Autonomous Agentic"
         },
         "publisher": {
-            "@type": "Organization",
+            "@type": "Organisation",
             "name": "Autonomous Agentic",
             "logo": {
                 "@type": "ImageObject",
@@ -161,26 +161,124 @@
                     </div>
                 </div>
                 
-                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop" alt="Creating your first AI Agent in Copilot Studio" class="article-image" width="900" height="450" loading="eager">
+                <img src="../assets/images/CreatingFirstAgent.avif" alt="Creating your first AI Agent in Copilot Studio" class="article-image" width="900" height="450" loading="eager">
                 
                 <div class="article-body">
-                    <p>A straightforward Guide on how to build your first BASIC Copilot Studio Agent</p>
+                    <div class="callout callout-info" style="margin-bottom:2rem;">
+                        <strong>🚀 What you'll achieve:</strong><br>
+                        By the end of this guide, you'll have built your first AI agent in Copilot Studio, no coding required! You'll learn the fundamentals of agent creation and be ready to build more sophisticated solutions.
+                    </div>
                     
                     <h2>Introduction</h2>
-                    <p>Start writing your article content here...</p>
+                    <p>Creating an AI agent might sound complex, but thanks to Copilot Studio's intuitive interface and built-in AI assistance, you'll have your first agent up and running in minutes. Whether you're looking to automate customer support, create an internal knowledge assistant, or build a specialised chatbot, this guide will walk you through the essential steps.</p>
                     
-                    <h2>Main Section</h2>
-                    <p>Add your main content here. You can use:</p>
+                    <p>The beauty of Copilot Studio is that it's designed for everyone, from business users to developers. You don't need to write code to create powerful AI agents that can answer questions, perform tasks, and integrate with your existing systems.</p>
+                    
+                    <h2>Getting Started: Your Path to Building AI Agents</h2>
+                    <p>Building your first agent is straightforward, but knowing where to start makes all the difference. Follow these steps to go from zero to a functioning AI agent. Don't worry, Copilot will guide you through each stage with helpful suggestions!</p>
+                    
+                    <div class="callout callout-tip" style="margin-bottom:2rem;">
+                        <strong>💡 Pro Tip:</strong> Before you begin, think about what specific problem your agent will solve. Having a clear purpose, like "answering product FAQs" or "helping employees find HR policies", will make the creation process much smoother.
+                    </div>
+                    
+                    <ol class="steps-list">
+                        <li><strong>Navigate to Copilot Studio</strong><br>
+                            The first step is accessing the full Copilot Studio platform. Head to <a href="https://copilotstudio.microsoft.com/" target="_blank" rel="noopener">copilotstudio.microsoft.com</a> directly, this is important because accessing it through Microsoft 365 will give you a limited "Copilot Studio Lite" experience instead of the full platform you need.<br><br>
+                            
+                            Once you're there, you'll see the home dashboard with quick access to all your agents and creation tools.<br>
+                            <div class="image-zoom-container">
+                                <img src="../assets/images/CopilotStudioHome.png" alt="Copilot Studio Home Page showing the main dashboard" class="article-image-step" width="900" height="600" loading="lazy">
+                            </div>
+                        </li>
+                        
+                        <li><strong>Create a New Agent</strong><br>
+                            In the left navigation panel, you'll see the 'Home' section. Click the <strong>'Create'</strong> button to open the creation hub. This page showcases various templates from Microsoft for common use cases, these are great for inspiration!<br><br>
+                            
+                            For this tutorial, we're building from scratch to understand the fundamentals, so click the <strong>'New Agent'</strong> button to start with a blank canvas.<br>
+                            <div class="image-zoom-container">
+                                <img src="../assets/images/CreateAgentPage.png" alt="Copilot Studio Create page showing the New Agent button" class="article-image-step zoomable" style="object-fit: cover; object-position: top; transform-origin: 0% 0%;" width="900" height="600" loading="lazy">
+                            </div>
+                        </li>
+                        
+                        <li><strong>Describe Your Agent's Purpose</strong><br>
+                            Now comes the fun part! The 'Describe' tab will be active, and Copilot will open with a friendly prompt about the 'Configure' tab.<br><br>
+                            
+                            Simply tell Copilot what you want your agent to do in natural language. Be specific but conversational, for example:<br>
+                            <ul>
+                                <li>"An agent to help customers understand our return policy"</li>
+                                <li>"A virtual assistant that explains Copilot Studio features to new users"</li>
+                                <li>"A HR bot that answers questions about benefits and time-off policies"</li>
+                            </ul><br>
+                            
+                            Copilot will analyse your description and suggest a name for your agent. You can accept it or propose something different that better fits your needs.<br>
+                            <div class="image-zoom-container">
+                              <img src="../assets/images/NewAgent.png" alt="Example of describing a new agent to Copilot" class="article-image-step" style="object-fit: cover; object-position: top;" width="900" height="600" loading="lazy">
+                            </div>  
+                        </li>
+                        
+                        <li><strong>Refine Your Agent's Capabilities</strong><br>
+                            After confirming your agent's name, you'll be prompted to refine what your agent should be able to do. This is where you get specific about the agent's responsibilities and behaviors.<br><br>
+                            
+                            Copilot provides helpful examples like "Answer FAQs" or "Guide users through a process." Think about:<br>
+                            <ul>
+                                <li>What questions should it answer?</li>
+                                <li>What tone should it use (formal, friendly, technical)?</li>
+                                <li>What actions can it take?</li>
+                                <li>Are there any topics it should avoid?</li>
+                            </ul><br>
+                            
+                            The more detail you provide here, the better your agent will understand its role and respond appropriately to users.
+                        </li>
+                        
+                        <li><strong>Add Knowledge Sources (Optional but Recommended)</strong><br>
+                            Knowledge is what makes your agent truly valuable. This is where you connect it to your organisation's information so it can provide accurate, relevant answers.<br><br>
+                            
+                            You can add knowledge from multiple sources:<br>
+                            <ul>
+                                <li><strong>Files:</strong> Upload PDFs, Word documents, Excel spreadsheets, or PowerPoint presentations containing your content</li>
+                                <li><strong>Web Pages:</strong> Add URLs to documentation, help articles, or product pages</li>
+                                <li><strong>Databases:</strong> Connect to Azure SQL, SharePoint sites, or other data sources</li>
+                                <li><strong>SharePoint:</strong> Link to your organisation's SharePoint sites for company knowledge</li>
+                            </ul><br>
+                            
+                            While you can create an agent without adding knowledge initially, adding relevant information sources will dramatically improve its ability to help users. You can always add more knowledge later as your agent evolves.<br>
+                            <div class="image-zoom-container">
+                              <img src="../assets/images/AgentKnowledge.png" alt="Knowledge source configuration showing multiple options" class="article-image-step" style="object-fit: cover; object-position: top;" width="900" height="600" loading="lazy">
+                            </div>         
+                        </li>
+                        
+                        <li><strong>Create and Test Your Agent</strong><br>
+                            You're almost there! Once you've described your agent, refined its capabilities, and added knowledge sources (if desired), click the <strong>'Create'</strong> button in the top right corner.<br><br>
+                            
+                            Copilot Studio will generate your agent, this usually takes just a few seconds. You'll then land on the agent overview page where you can:<br>
+                            <ul>
+                                <li><strong>Test it immediately:</strong> Use the built-in test chat to see how your agent responds</li>
+                                <li><strong>Fine-tune responses:</strong> Adjust topics, add more knowledge, or modify behaviors</li>
+                                <li><strong>Configure advanced features:</strong> Set up authentication, add custom actions, or integrate with external systems</li>
+                                <li><strong>Publish when ready:</strong> Deploy your agent to Teams, web, or other channels</li>
+                            </ul><br>
+                            
+                            Don't worry about getting everything perfect, you can continuously improve your agent based on real user interactions and feedback.
+                        </li>
+                    </ol>
+                    
+                    <h2>What's Next?</h2>
+                    <p>Congratulations! 🎉 You've just created your first AI agent in Copilot Studio. But this is just the beginning of what's possible.</p>
+                    
+                    <p>Now that you have the basics down, you can explore more advanced features like:</p>
                     <ul>
-                        <li>Bullet points for lists</li>
-                        <li>Bold text with <strong>strong</strong> tags</li>
-                        <li>Code blocks with <code>pre</code> and <code>code</code> tags</li>
+                        <li><strong>Custom topics:</strong> Create specific conversation flows for different scenarios</li>
+                        <li><strong>Actions and plugins:</strong> Connect your agent to external systems and APIs</li>
+                        <li><strong>Authentication:</strong> Let your agent access user-specific information securely</li>
+                        <li><strong>Analytics:</strong> Track how users interact with your agent and identify improvement areas</li>
+                        <li><strong>Multi-channel deployment:</strong> Make your agent available wherever your users are, Teams, websites, mobile apps, and more</li>
                     </ul>
                     
-                    <h2>Conclusion</h2>
-                    <p>Wrap up your article with a conclusion...</p>
+                    <div class="callout callout-success" style="margin-top:2rem;">
+                        <strong>✅ You Did It!</strong><br>
+                        You now have the foundational knowledge to build AI agents in Copilot Studio. Start simple, test often, and gradually add features as you become more comfortable with the platform. Every great AI solution starts with that first agent, and you just built yours!
+                    </div>
                     
-                    <blockquote>Add a memorable quote or key takeaway here.</blockquote>
                 </div>
                 
                 <div class="article-footer">
@@ -293,7 +391,7 @@
     <script type="module" src="../assets/js/achievements.js"></script>
     <script type="module" src="../assets/js/preferences.js"></script>
     <script src="../assets/js/shared.js"></script>
-    <script type=\"module\">
+    <script type="module">
         import { handleRelatedArticles } from '../assets/js/related.js';
         import { initComments, postComment } from '../assets/js/comments.js';
         import { initPostActions, initShareButtons } from '../assets/js/likes.js';

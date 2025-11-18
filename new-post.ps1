@@ -53,7 +53,7 @@ if ([string]::IsNullOrWhiteSpace($readTime)) {
 
 $imageUrl = Read-Host "Enter image URL (or press Enter to use default)"
 if ([string]::IsNullOrWhiteSpace($imageUrl)) {
-    $imageUrl = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop"
+    $imageUrl = "../assets/images/CreatingFirstAgent.avif"
 }
 
 # Ensure relative paths start with ../
