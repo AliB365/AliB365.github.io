@@ -1,137 +1,27 @@
-﻿#!/usr/bin/env pwsh
-# New Blog Post Generator for Autonomous Agentic
-# Usage: .\new-post.ps1
-
-Write-Host "==================================" -ForegroundColor Cyan
-Write-Host "  New Blog Post Generator" -ForegroundColor Cyan
-Write-Host "  Autonomous Agentic Blog" -ForegroundColor Cyan
-Write-Host "==================================" -ForegroundColor Cyan
-Write-Host ""
-
-# Function to convert title to URL-friendly slug
-function Convert-ToSlug {
-    param([string]$text)
-    $slug = $text.ToLower()
-    $slug = $slug -replace '[^a-z0-9\s-]', ''
-    $slug = $slug -replace '\s+', '-'
-    $slug = $slug -replace '-+', '-'
-    $slug = $slug.Trim('-')
-    return $slug
-}
-
-# Function to format date
-function Get-FormattedDate {
-    param([datetime]$date)
-    return $date.ToString("MMMM d, yyyy")
-}
-
-# Collect post information
-Write-Host "Let's create a new blog post!" -ForegroundColor Green
-Write-Host ""
-
-$title = Read-Host "Enter post title"
-if ([string]::IsNullOrWhiteSpace($title)) {
-    Write-Host "Error: Title cannot be empty" -ForegroundColor Red
-    exit 1
-}
-
-$excerpt = Read-Host "Enter post excerpt (brief description)"
-if ([string]::IsNullOrWhiteSpace($excerpt)) {
-    Write-Host "Error: Excerpt cannot be empty" -ForegroundColor Red
-    exit 1
-}
-
-$author = Read-Host "Enter author name (press Enter for 'Autonomous Agentic')"
-if ([string]::IsNullOrWhiteSpace($author)) {
-    $author = "Autonomous Agentic"
-}
-
-$readTime = Read-Host "Enter estimated read time in minutes (e.g., 5)"
-if ([string]::IsNullOrWhiteSpace($readTime)) {
-    $readTime = "5"
-}
-
-$imageUrl = Read-Host "Enter image URL (or press Enter to use default)"
-if ([string]::IsNullOrWhiteSpace($imageUrl)) {
-    $imageUrl = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop"
-}
-
-Write-Host ""
-Write-Host "Available tags: ai, agents, automation, tutorials" -ForegroundColor Yellow
-$tagsInput = Read-Host "Enter tags (comma-separated, e.g., ai,agents)"
-if ([string]::IsNullOrWhiteSpace($tagsInput)) {
-    $tags = @("ai")
-} else {
-    $tags = $tagsInput.Split(',') | ForEach-Object { $_.Trim() }
-}
-
-$featuredInput = Read-Host "Make this a featured post? (y/n, default: n)"
-$featured = $featuredInput -eq 'y'
-
-# Generate slug from title
-$slug = Convert-ToSlug -text $title
-Write-Host ""
-Write-Host "Generated slug: $slug" -ForegroundColor Cyan
-
-$customSlug = Read-Host "Use this slug? (press Enter to accept, or type a custom slug)"
-if (-not [string]::IsNullOrWhiteSpace($customSlug)) {
-    $slug = Convert-ToSlug -text $customSlug
-}
-
-# Get current date
-$currentDate = Get-Date
-$dateString = $currentDate.ToString("yyyy-MM-dd")
-$formattedDate = Get-FormattedDate -date $currentDate
-
-# Define file paths
-$htmlFile = "posts/$slug.html"
-$indexFile = "data/posts-index.json"
-
-# Check if post already exists
-if (Test-Path $htmlFile) {
-    Write-Host ""
-    Write-Host "Error: A post with this slug already exists!" -ForegroundColor Red
-    Write-Host "File: $htmlFile" -ForegroundColor Yellow
-    $overwrite = Read-Host "Overwrite? (y/n)"
-    if ($overwrite -ne 'y') {
-        Write-Host "Cancelled." -ForegroundColor Yellow
-        exit 0
-    }
-}
-
-Write-Host ""
-Write-Host "Creating new blog post..." -ForegroundColor Green
-
-# Generate tag HTML
-$tagHtml = ($tags | ForEach-Object { "<span class=`"tag`">$_</span>" }) -join "`n                        "
-$tagFooterHtml = ($tags | ForEach-Object { "<span class=`"tag`">$_</span>" }) -join "`n                        "
-
-# Create HTML content
-$htmlContent = @"
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>$title | Autonomous Agentic</title>
-    <meta name="description" content="$excerpt">
-    <link rel="canonical" href="https://alib365.github.io/posts/$slug.html">
+    <title>Creating your first AI Agent in Copilot Studio | Autonomous Agentic</title>
+    <meta name="description" content="A straightforward Guide on how to build your first BASIC Copilot Studio Agent">
+    <link rel="canonical" href="https://alib365.github.io/posts/creating-your-first-ai-agent-in-copilot-studio.html">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://alib365.github.io/posts/$slug.html">
-    <meta property="og:title" content="$title | Autonomous Agentic">
-    <meta property="og:description" content="$excerpt">
-    <meta property="og:image" content="$imageUrl">
-    <meta property="og:article:published_time" content="$dateString">
-    <meta property="og:article:author" content="$author">
+    <meta property="og:url" content="https://alib365.github.io/posts/creating-your-first-ai-agent-in-copilot-studio.html">
+    <meta property="og:title" content="Creating your first AI Agent in Copilot Studio | Autonomous Agentic">
+    <meta property="og:description" content="A straightforward Guide on how to build your first BASIC Copilot Studio Agent">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop">
+    <meta property="og:article:published_time" content="2025-11-18">
+    <meta property="og:article:author" content="Autonomous Agentic">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://alib365.github.io/posts/$slug.html">
-    <meta property="twitter:title" content="$title | Autonomous Agentic">
-    <meta property="twitter:description" content="$excerpt">
-    <meta property="twitter:image" content="$imageUrl">
+    <meta property="twitter:url" content="https://alib365.github.io/posts/creating-your-first-ai-agent-in-copilot-studio.html">
+    <meta property="twitter:title" content="Creating your first AI Agent in Copilot Studio | Autonomous Agentic">
+    <meta property="twitter:description" content="A straightforward Guide on how to build your first BASIC Copilot Studio Agent">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop">
     
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
     <!-- Preload critical resources -->
@@ -143,30 +33,30 @@ $htmlContent = @"
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
     
     <!-- Structured Data -->
-    <script type=`"application/ld+json`">
+    <script type="application/ld+json">
     {
-        `"@context`": `"https://schema.org`",
-        `"@type`": `"Article`",
-        `"headline`": `"$title`",
-        `"description`": `"$excerpt`",
-        `"image`": `"$imageUrl`",
-        `"datePublished`": `"$dateString`",
-        `"dateModified`": `"$dateString`",
-        `"author`": {
-            `"@type`": `"Person`",
-            `"name`": `"$author`"
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Creating your first AI Agent in Copilot Studio",
+        "description": "A straightforward Guide on how to build your first BASIC Copilot Studio Agent",
+        "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+        "datePublished": "2025-11-18",
+        "dateModified": "2025-11-18",
+        "author": {
+            "@type": "Person",
+            "name": "Autonomous Agentic"
         },
-        `"publisher`": {
-            `"@type`": `"Organization`",
-            `"name`": `"Autonomous Agentic`",
-            `"logo`": {
-                `"@type`": `"ImageObject`",
-                `"url`": `"https://alib365.github.io/assets/images/favicon.png`"
+        "publisher": {
+            "@type": "Organization",
+            "name": "Autonomous Agentic",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://alib365.github.io/assets/images/favicon.png"
             }
         },
-        `"mainEntityOfPage`": {
-            `"@type`": `"WebPage`",
-            `"@id`": `"https://alib365.github.io/posts/$slug.html`"
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://alib365.github.io/posts/creating-your-first-ai-agent-in-copilot-studio.html"
         }
     }
     </script>
@@ -225,13 +115,13 @@ $htmlContent = @"
             <article class="article-full">
                 <!-- Article Actions (Like, Bookmark) -->
                 <div class="article-actions">
-                    <button class="like-btn" data-post-id="$slug" aria-label="Like this post">
+                    <button class="like-btn" data-post-id="creating-your-first-ai-agent-in-copilot-studio" aria-label="Like this post">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                         </svg>
                         <span class="like-count">0</span>
                     </button>
-                    <button class="bookmark-btn" data-post-id="$slug" aria-label="Bookmark this post">
+                    <button class="bookmark-btn" data-post-id="creating-your-first-ai-agent-in-copilot-studio" aria-label="Bookmark this post">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
                         </svg>
@@ -240,9 +130,10 @@ $htmlContent = @"
 
                 <div class="article-header">
                     <div class="article-tags">
-                        $tagHtml
+                        <span class="tag">agents</span>
+                        <span class="tag">tutorials</span>
                     </div>
-                    <h1 class="article-title">$title</h1>
+                    <h1 class="article-title">Creating your first AI Agent in Copilot Studio</h1>
                     <div class="article-meta">
                         <span class="meta-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -251,29 +142,29 @@ $htmlContent = @"
                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                             </svg>
-                            $formattedDate
+                            November 18, 2025
                         </span>
                         <span class="meta-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <polyline points="12 6 12 12 16 14"></polyline>
                             </svg>
-                            $readTime min read
+                            5 min read
                         </span>
                         <span class="meta-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="12" cy="7" r="4"></circle>
                             </svg>
-                            $author
+                            Autonomous Agentic
                         </span>
                     </div>
                 </div>
                 
-                <img src="$imageUrl" alt="$title" class="article-image" width="900" height="450" loading="eager">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop" alt="Creating your first AI Agent in Copilot Studio" class="article-image" width="900" height="450" loading="eager">
                 
                 <div class="article-body">
-                    <p>$excerpt</p>
+                    <p>A straightforward Guide on how to build your first BASIC Copilot Studio Agent</p>
                     
                     <h2>Introduction</h2>
                     <p>Start writing your article content here...</p>
@@ -295,7 +186,8 @@ $htmlContent = @"
                 <div class="article-footer">
                     <div class="article-tags-footer">
                         <strong>Tags:</strong>
-                        $tagFooterHtml
+                        <span class="tag">agents</span>
+                        <span class="tag">tutorials</span>
                     </div>
                 </div>
             </article>
@@ -411,8 +303,8 @@ $htmlContent = @"
         import { checkAchievements } from '../assets/js/achievements.js';
         
         // Get post ID from slug
-        const postId = '$slug';
-        const postTitle = '$title';
+        const postId = 'creating-your-first-ai-agent-in-copilot-studio';
+        const postTitle = 'Creating your first AI Agent in Copilot Studio';
         
         // Remove related section if no related articles
         handleRelatedArticles('.related-posts-section', '#related-posts');
@@ -457,7 +349,7 @@ $htmlContent = @"
                     if (formContainer) formContainer.style.display = 'block';
                     
                     // Track reading and check achievements
-                    trackReading(user.uid, postId, '$title');
+                    trackReading(user.uid, postId, 'Creating your first AI Agent in Copilot Studio');
                     checkAchievements(user.uid);
                 } else {
                     if (authPrompt) authPrompt.style.display = 'block';
@@ -493,80 +385,3 @@ $htmlContent = @"
     </script>
 </body>
 </html>
-"@
-
-# Write HTML file
-$htmlContent | Out-File -FilePath $htmlFile -Encoding UTF8
-Write-Host "✓ Created HTML file: $htmlFile" -ForegroundColor Green
-
-# Update posts-index.json
-if (Test-Path $indexFile) {
-    $indexContent = Get-Content $indexFile -Raw | ConvertFrom-Json
-    
-    # Check if post already exists in index
-    $existingIndex = -1
-    for ($i = 0; $i -lt $indexContent.Count; $i++) {
-        if ($indexContent[$i].id -eq $slug) {
-            $existingIndex = $i
-            break
-        }
-    }
-    
-    # Create new post entry
-    $newEntry = [PSCustomObject]@{
-        id = $slug
-        title = $title
-        excerpt = $excerpt
-        url = "posts/$slug.html"
-        image = $imageUrl
-        date = $dateString
-        author = $author
-        readTime = [int]$readTime
-        tags = $tags
-        featured = $featured
-    }
-    
-    # If featured, unfeatured other posts
-    if ($featured) {
-        foreach ($post in $indexContent) {
-            $post.featured = $false
-        }
-    }
-    
-    # Add or update entry
-    if ($existingIndex -ge 0) {
-        $indexContent[$existingIndex] = $newEntry
-        Write-Host "✓ Updated existing entry in posts index" -ForegroundColor Yellow
-    } else {
-        # Add new entry at the beginning (most recent first)
-        $indexContent = @($newEntry) + $indexContent
-        Write-Host "✓ Added new entry to posts index" -ForegroundColor Green
-    }
-    
-    # Save updated index
-    $indexContent | ConvertTo-Json -Depth 10 -AsArray | Out-File -FilePath $indexFile -Encoding UTF8
-} else {
-    Write-Host "Error: Could not find $indexFile" -ForegroundColor Red
-    exit 1
-}
-
-Write-Host ""
-Write-Host "==================================" -ForegroundColor Cyan
-Write-Host "  Blog Post Created Successfully!" -ForegroundColor Green
-Write-Host "==================================" -ForegroundColor Cyan
-Write-Host ""
-Write-Host "Post Details:" -ForegroundColor Yellow
-Write-Host "  Title:     $title"
-Write-Host "  Slug:      $slug"
-Write-Host "  File:      $htmlFile"
-Write-Host "  Featured:  $featured"
-Write-Host "  Tags:      $($tags -join ', ')"
-Write-Host ""
-Write-Host "Next Steps:" -ForegroundColor Yellow
-Write-Host "  1. Edit $htmlFile to add your content"
-Write-Host "  2. The post is already added to the blog index"
-Write-Host "  3. Refresh your blog to see the new post!"
-Write-Host ""
-Write-Host "To edit the post:" -ForegroundColor Cyan
-Write-Host "  code $htmlFile" -ForegroundColor White
-Write-Host ""
