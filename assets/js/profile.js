@@ -6,7 +6,6 @@ let db = null;
 
 function initFirestore() {
     if (!window.firebaseApp) {
-        console.error('Firebase app not initialized');
         return false;
     }
     db = getFirestore(window.firebaseApp);
@@ -25,7 +24,6 @@ export async function trackReading(postId, postTitle) {
         // Check if already tracked today
         const existingDoc = await getDoc(readingRef);
         if (existingDoc.exists()) {
-            console.log('Already tracked this post today');
             return true; // Already tracked today, no need to write again
         }
         
@@ -42,7 +40,6 @@ export async function trackReading(postId, postTitle) {
         await updateStreak();
         return true;
     } catch (error) {
-        console.error('Error tracking reading:', error);
         return false;
     }
 }
@@ -79,7 +76,7 @@ async function updateStreak() {
             longestStreak: Math.max(streak, statsDoc.exists() ? statsDoc.data().longestStreak || 0 : 0)
         }, { merge: true });
     } catch (error) {
-        console.error('Error updating streak:', error);
+        // Silent fail
     }
 }
 
@@ -117,7 +114,6 @@ export async function getUserStats() {
             bookmarks: bookmarks.length
         };
     } catch (error) {
-        console.error('Error getting user stats:', error);
         return null;
     }
 }
@@ -140,36 +136,26 @@ export async function getReadingHistory() {
         });
         return history;
     } catch (error) {
-        console.error('Error getting reading history:', error);
         return [];
     }
 }
 
 // Initialize profile page
 export async function initProfilePage() {
-    console.log('initProfilePage called, currentUser:', window.currentUser);
-    
     if (!window.currentUser) {
-        console.log('No current user, redirecting...');
         window.location.href = 'index.html';
         return;
     }
 
     if (!initFirestore()) {
-        console.error('Failed to initialize Firestore');
         return;
     }
 
-    console.log('Loading user profile...');
     // Load user profile first
     const userProfile = await loadUserProfile();
-    console.log('User profile loaded:', userProfile);
 
-    console.log('Getting user stats...');
     const stats = await getUserStats();
-    console.log('User stats:', stats);
     if (!stats) {
-        console.error('Failed to get user stats');
         return;
     }
 
@@ -178,7 +164,6 @@ export async function initProfilePage() {
     const profileAvatar = document.getElementById('profile-avatar');
     const profileName = document.querySelector('.profile-details h1');
     
-    console.log('Updating profile UI elements...');
     if (profileEmail) {
         profileEmail.textContent = window.currentUser.email;
     }
@@ -218,10 +203,8 @@ export async function initProfilePage() {
     const statBookmarks = document.getElementById('stat-bookmarks');
     if (statBookmarks) statBookmarks.textContent = stats.bookmarks;
 
-    console.log('Loading bookmarks...');
     // Load bookmarks
     const bookmarks = await getUserBookmarks();
-    console.log('Bookmarks loaded:', bookmarks.length);
     const bookmarkList = document.getElementById('bookmark-list');
     if (bookmarkList) {
         if (bookmarks.length === 0) {
@@ -241,10 +224,8 @@ export async function initProfilePage() {
         }
     }
 
-    console.log('Loading reading history...');
     // Load reading history
     const history = await getReadingHistory();
-    console.log('Reading history loaded:', history.length);
     const historyList = document.getElementById('history-list');
     if (historyList) {
         if (history.length === 0) {
@@ -260,8 +241,6 @@ export async function initProfilePage() {
             `).join('');
         }
     }
-    
-    console.log('Profile page initialization complete');
 }
 
 // Load user profile information (kept for potential future use)
@@ -277,7 +256,6 @@ async function loadUserProfile() {
         }
         return null;
     } catch (error) {
-        console.error('Error loading user profile:', error);
         return null;
     }
 }

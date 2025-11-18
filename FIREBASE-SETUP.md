@@ -8,7 +8,7 @@ Your blog now uses Firebase Authentication, which works perfectly with GitHub Pa
 
 1. Go to [Firebase Console](https://console.firebase.google.com/)
 2. Click "Add project" or "Create a project"
-3. Enter a project name (e.g., "autonomous-agentics-blog")
+3. Enter a project name (e.g., "autonomous-Agentic-blog")
 4. Disable Google Analytics (optional, you can enable it later)
 5. Click "Create project"
 

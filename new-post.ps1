@@ -115,13 +115,66 @@ $htmlContent = @"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>$title | Autonomous Agentic</title>
     <meta name="description" content="$excerpt">
+    <link rel="canonical" href="https://alib365.github.io/posts/$slug.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://alib365.github.io/posts/$slug.html">
+    <meta property="og:title" content="$title | Autonomous Agentic">
+    <meta property="og:description" content="$excerpt">
+    <meta property="og:image" content="$imageUrl">
+    <meta property="og:article:published_time" content="$dateString">
+    <meta property="og:article:author" content="$author">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://alib365.github.io/posts/$slug.html">
+    <meta property="twitter:title" content="$title | Autonomous Agentic">
+    <meta property="twitter:description" content="$excerpt">
+    <meta property="twitter:image" content="$imageUrl">
+    
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../assets/css/style.css" as="style">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "$title",
+        "description": "$excerpt",
+        "image": "$imageUrl",
+        "datePublished": "$dateString",
+        "dateModified": "$dateString",
+        "author": {
+            "@type": "Person",
+            "name": "$author"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Autonomous Agentic",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://alib365.github.io/assets/images/favicon.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://alib365.github.io/posts/$slug.html"
+        }
+    }
+    </script>
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
@@ -132,23 +185,29 @@ $htmlContent = @"
                 <ul class="nav-links">
                     <li><a href="../index.html">Home</a></li>
                     <li><a href="../index.html#about">About</a></li>
-                    <li><a href="../index.html#blog">Blog</a></li>
-                    <li><a href="../profile.html">Profile</a></li>
+                    <li><a href="../index.html#blog">Articles</a></li>
                     <li><a href="../index.html#contact">Contact</a></li>
-                </ul>
-                <div class="nav-auth">
-                    <button id="signin-btn" class="btn-auth btn-signin">Sign In</button>
-                    <div id="user-menu" class="user-menu" style="display: none;">
-                        <button class="user-menu-btn">
-                            <img id="user-avatar" class="user-avatar" alt="User">
-                            <span id="user-name"></span>
-                        </button>
-                        <div class="user-dropdown">
-                            <a href="../profile.html">Profile</a>
-                            <button id="signout-btn">Sign Out</button>
+                    <li><a href="../profile.html">Profile</a></li>
+                    <li id="auth-nav-container">
+                        <div id="auth-buttons" class="auth-buttons">
+                            <button id="signin-btn" class="btn btn-secondary btn-nav">Sign In</button>
                         </div>
-                    </div>
-                </div>
+                        <div id="user-menu" class="user-menu" style="display: none;">
+                            <button id="user-menu-btn" class="user-menu-btn">
+                                <span id="user-name-display"></span>
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                    <path d="M6 9L1 4h10z"/>
+                                </svg>
+                            </button>
+                            <div id="user-dropdown" class="user-dropdown">
+                                <div class="user-info">
+                                    <div class="user-email" id="user-email-display"></div>
+                                </div>
+                                <button id="signout-btn" class="dropdown-item">Sign Out</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
                 <button class="mobile-menu-toggle" aria-label="Toggle menu">
                     <span></span>
                     <span></span>
@@ -158,7 +217,7 @@ $htmlContent = @"
         </div>
     </nav>
 
-    <main class="article-page">
+    <main class="article-page" id="main-content">
         <div class="container">
             <!-- Reading Progress Bar -->
             <div class="reading-progress-bar"></div>
@@ -211,7 +270,7 @@ $htmlContent = @"
                     </div>
                 </div>
                 
-                <img src="$imageUrl" alt="$title" class="article-image">
+                <img src="$imageUrl" alt="$title" class="article-image" width="900" height="450" loading="eager">
                 
                 <div class="article-body">
                     <p>$excerpt</p>
@@ -285,24 +344,6 @@ $htmlContent = @"
                 <a href="../index.html#blog" class="btn btn-primary">← Back to Home</a>
             </div>
 
-            <!-- Auth Container -->
-            <div id="auth-container" class="auth-container" style="display: none;">
-                <div class="auth-modal">
-                    <button class="auth-close" id="auth-close-btn">×</button>
-                    <h2>Sign in to continue</h2>
-                    <p>Sign in to like posts, bookmark articles, and track your reading progress.</p>
-                    <button class="btn btn-primary" id="google-signin-btn">
-                        <svg width="18" height="18" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                            <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                            <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                            <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                        </svg>
-                        Sign in with Google
-                    </button>
-                </div>
-            </div>
-
             <!-- Comments Section -->
             <section class="comments-section-wrapper">
                 <div class="comments-section">
@@ -337,7 +378,7 @@ $htmlContent = @"
 
                     <!-- Comments List -->
                     <div id="comments-list" class="comments-list">
-                        <!-- Comments will be loaded here -->
+                        <p class="loading-message">Loading comments...</p>
                     </div>
                 </div>
             </section>
@@ -361,6 +402,7 @@ $htmlContent = @"
     <script type=\"module\" src=\"../assets/js/preferences.js\"></script>
     <script src=\"../assets/js/shared.js\"></script>
     <script type=\"module\">
+        import { handleRelatedArticles } from '../assets/js/related.js';
         import { initComments, postComment } from '../assets/js/comments.js';
         import { initPostActions, initShareButtons } from '../assets/js/likes.js';
         import { initProgressBar } from '../assets/js/progress-bar.js';
@@ -371,6 +413,9 @@ $htmlContent = @"
         // Get post ID from slug
         const postId = '$slug';
         const postTitle = '$title';
+        
+        // Remove related section if no related articles
+        handleRelatedArticles('.related-posts-section', '#related-posts');
         
         // Wait for Firebase to initialize before running features
         function initializeFeatures() {

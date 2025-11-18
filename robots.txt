@@ -1,0 +1,13 @@
+# robots.txt for Autonomous Agentic
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://alib365.github.io/sitemap.xml
+
+# Disallow crawling of private or system files
+Disallow: /firebase-config.js
+Disallow: /server.js
+Disallow: /.git/
+Disallow: /data/sessions.json
+Disallow: /data/users.json

@@ -6,7 +6,6 @@ let db = null;
 // Initialize Firestore
 function initFirestore() {
     if (!window.firebaseApp) {
-        console.error('Firebase app not initialized');
         return false;
     }
     db = getFirestore(window.firebaseApp);
@@ -16,7 +15,6 @@ function initFirestore() {
 // Like a post
 export async function likePost(postId) {
     if (!initFirestore() || !window.currentUser) {
-        console.error('Not authenticated or Firestore not available');
         return false;
     }
 
@@ -29,7 +27,6 @@ export async function likePost(postId) {
         });
         return true;
     } catch (error) {
-        console.error('Error liking post:', error);
         return false;
     }
 }
@@ -45,7 +42,6 @@ export async function unlikePost(postId) {
         await deleteDoc(likeRef);
         return true;
     } catch (error) {
-        console.error('Error unliking post:', error);
         return false;
     }
 }
@@ -61,7 +57,6 @@ export async function isPostLiked(postId) {
         const likeDoc = await getDoc(likeRef);
         return likeDoc.exists();
     } catch (error) {
-        console.error('Error checking like status:', error);
         return false;
     }
 }
@@ -77,7 +72,6 @@ export async function getLikeCount(postId) {
         const querySnapshot = await getDocs(likesQuery);
         return querySnapshot.size;
     } catch (error) {
-        console.error('Error getting like count:', error);
         return 0;
     }
 }
@@ -85,7 +79,6 @@ export async function getLikeCount(postId) {
 // Bookmark a post
 export async function bookmarkPost(postId, postTitle) {
     if (!initFirestore() || !window.currentUser) {
-        console.error('Not authenticated or Firestore not available');
         return false;
     }
 
@@ -99,7 +92,6 @@ export async function bookmarkPost(postId, postTitle) {
         });
         return true;
     } catch (error) {
-        console.error('Error bookmarking post:', error);
         return false;
     }
 }
@@ -115,7 +107,6 @@ export async function removeBookmark(postId) {
         await deleteDoc(bookmarkRef);
         return true;
     } catch (error) {
-        console.error('Error removing bookmark:', error);
         return false;
     }
 }
@@ -131,7 +122,6 @@ export async function isPostBookmarked(postId) {
         const bookmarkDoc = await getDoc(bookmarkRef);
         return bookmarkDoc.exists();
     } catch (error) {
-        console.error('Error checking bookmark status:', error);
         return false;
     }
 }
@@ -151,7 +141,6 @@ export async function getUserBookmarks() {
         });
         return bookmarks.sort((a, b) => b.timestamp - a.timestamp);
     } catch (error) {
-        console.error('Error getting bookmarks:', error);
         return [];
     }
 }
@@ -162,7 +151,6 @@ export function initPostActions(postId, postTitle) {
     const bookmarkBtn = document.querySelector('.bookmark-btn');
 
     if (!likeBtn || !bookmarkBtn) {
-        console.log('Like or bookmark button not found');
         return;
     }
 

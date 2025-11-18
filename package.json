@@ -1,5 +1,5 @@
 {
-  "name": "autonomous-agentics-blog",
+  "name": "autonomous-Agentic-blog",
   "version": "1.0.0",
   "description": "A modern blog for Autonomous Agentic with Firebase Authentication",
   "main": "index.html",
@@ -11,7 +11,7 @@
     "blog",
     "autonomous",
     "ai",
-    "agentics",
+    "Agentic",
     "firebase"
   ],
   "author": "",

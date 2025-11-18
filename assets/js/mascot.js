@@ -123,7 +123,6 @@ function getAvailableMascots() {
     const holidayMascotList = getActiveHoliday();
     if (holidayMascotList && holidayMascotList.length > 0) {
         availableMascots = [...availableMascots, ...holidayMascotList];
-        console.log('🎉 Holiday mascots active!');
     }
     
     // Add seasonal mascots
@@ -131,7 +130,6 @@ function getAvailableMascots() {
     const currentSeasonMascots = seasonalMascots[currentSeason] || [];
     if (currentSeasonMascots.length > 0) {
         availableMascots = [...availableMascots, ...currentSeasonMascots];
-        console.log(`🌸 ${currentSeason.charAt(0).toUpperCase() + currentSeason.slice(1)} mascots active!`);
     }
     
     return availableMascots;
@@ -159,10 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mascotImg.onload = () => {
                 mascotImg.style.opacity = '1';
             };
-            
-            // Log which mascot was loaded
-            console.log(`🎨 Loaded mascot: ${randomMascot}`);
-            console.log(`📅 Current season: ${getCurrentSeason()}`);
         }
     }
 });

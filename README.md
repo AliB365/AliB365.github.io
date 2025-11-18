@@ -34,7 +34,7 @@ A modern, dynamic blog website for exploring autonomous agents, AI systems, and 
 ## 📁 Project Structure
 
 ```
-AutonomousAgentics/
+AutonomousAgentic/
 ├── index.html              # Main HTML file
 ├── profile.html            # User profile/dashboard page
 ├── package.json            # Project configuration

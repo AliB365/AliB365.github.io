@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Homepage -->
+    <url>
+        <loc>https://alib365.github.io/</loc>
+        <lastmod>2025-11-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- Profile Page -->
+    <url>
+        <loc>https://alib365.github.io/profile.html</loc>
+        <lastmod>2025-11-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <!-- Blog Posts -->
+    <url>
+        <loc>https://alib365.github.io/posts/custom-start-message-copilot-studio.html</loc>
+        <lastmod>2025-11-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Note: Add new blog posts to this sitemap when created -->
+</urlset>

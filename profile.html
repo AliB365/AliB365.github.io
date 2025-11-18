@@ -3,7 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - Autonomous Agentics</title>
+    <title>My Profile - Autonomous Agentic</title>
+    <meta name="description" content="View your reading progress, achievements, bookmarks, and activity on Autonomous Agentic.">
+    <link rel="canonical" href="https://alib365.github.io/profile.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alib365.github.io/profile.html">
+    <meta property="og:title" content="My Profile - Autonomous Agentic">
+    <meta property="og:description" content="View your reading progress, achievements, bookmarks, and activity on Autonomous Agentic.">
+    <meta property="og:image" content="https://alib365.github.io/assets/images/mascot.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="https://alib365.github.io/profile.html">
+    <meta property="twitter:title" content="My Profile - Autonomous Agentic">
+    <meta property="twitter:description" content="View your reading progress, achievements, bookmarks, and activity on Autonomous Agentic.">
+    <meta property="twitter:image" content="https://alib365.github.io/assets/images/mascot.png">
+    
     <link rel="preload" href="assets/css/style.css" as="style">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,13 +28,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
                 <a href="index.html" class="logo">
-                    <img src="assets/images/favicon.png" alt="Logo" class="logo-img" width="40" height="40">
-                    <span class="logo-text">Autonomous Agentics</span>
+                    <img src="assets/images/favicon.png" alt="Autonomous Agentic" class="logo-img" width="40" height="40">
+                    <span class="logo-text">Autonomous Agentic</span>
                 </a>
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
@@ -55,7 +75,7 @@
     </nav>
 
     <!-- Profile Page -->
-    <div class="profile-page">
+    <div class="profile-page" id="main-content">
         <div class="container">
             <!-- Profile Header -->
             <div class="profile-header">
@@ -136,37 +156,14 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Autonomous Agentics. All rights reserved.</p>
+            <p>&copy; 2025 Autonomous Agentic. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="firebase-config.js"></script>
     <script type="module" src="assets/js/auth.js"></script>
-    <script>
-        // Mobile menu toggle
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-            
-            if (mobileMenuToggle && navLinks) {
-                mobileMenuToggle.addEventListener('click', () => {
-                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-                    if (navLinks.style.display === 'flex') {
-                        navLinks.style.flexDirection = 'column';
-                        navLinks.style.position = 'absolute';
-                        navLinks.style.top = '70px';
-                        navLinks.style.right = '20px';
-                        navLinks.style.background = 'var(--darker-bg)';
-                        navLinks.style.padding = '1rem';
-                        navLinks.style.borderRadius = '8px';
-                        navLinks.style.border = '1px solid var(--border-color)';
-                        navLinks.style.zIndex = '1000';
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="assets/js/shared.js"></script>
     <script type="module">
         import { initProfilePage } from './assets/js/profile.js';
         import { initAchievementsDisplay } from './assets/js/achievements.js';
