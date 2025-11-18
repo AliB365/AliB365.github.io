@@ -396,17 +396,17 @@ $htmlContent = @"
         </div>
     </footer>
 
-    <script src=\"../firebase-config.js\"></script>
-    <script type=\"module\" src=\"../assets/js/auth.js\"></script>
-    <script type=\"module\" src=\"../assets/js/comments.js\"></script>
-    <script type=\"module\" src=\"../assets/js/likes.js\"></script>
-    <script type=\"module\" src=\"../assets/js/progress-bar.js\"></script>
-    <script type=\"module\" src=\"../assets/js/toc.js\"></script>
-    <script type=\"module\" src=\"../assets/js/profile.js\"></script>
-    <script type=\"module\" src=\"../assets/js/achievements.js\"></script>
-    <script type=\"module\" src=\"../assets/js/preferences.js\"></script>
-    <script src=\"../assets/js/shared.js\"></script>
-    <script type=\"module\">
+    <script src="../firebase-config.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script type="module" src="../assets/js/comments.js"></script>
+    <script type="module" src="../assets/js/likes.js"></script>
+    <script type="module" src="../assets/js/progress-bar.js"></script>
+    <script type="module" src="../assets/js/toc.js"></script>
+    <script type="module" src="../assets/js/profile.js"></script>
+    <script type="module" src="../assets/js/achievements.js"></script>
+    <script type="module" src="../assets/js/preferences.js"></script>
+    <script src="../assets/js/shared.js"></script>
+    <script type="module">
         import { handleRelatedArticles } from '../assets/js/related.js';
         import { initComments, postComment } from '../assets/js/comments.js';
         import { initPostActions, initShareButtons } from '../assets/js/likes.js';
