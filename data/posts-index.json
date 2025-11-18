@@ -1,14 +1,26 @@
 ﻿[
     {
-        "id":  "custom-start-message-copilot-studio",
-        "title":  "Personalise Your AI: Changing the Start Message in Copilot Studio",
-        "excerpt":  "Learn how to change your Copilot Studio agent's start message to unlock greater customisation. First impressions matter, so why should it be any different for your agent?",
-        "url":  "posts/custom-start-message-copilot-studio.html",
-        "image":  "assets/images/ThumbnailCustomMessage.avif",
-        "date":  "2025-11-16",
-        "author":  "Autonomous Agentic",
-        "readTime":  5,
-        "tags":  ["tutorials","agents"],
-        "featured":  true
+        "id": "creating-your-first-ai-agent-in-copilot-studio",
+        "title": "Creating your first AI Agent in Copilot Studio",
+        "excerpt": "A straightforward Guide on how to build your first BASIC Copilot Studio Agent",
+        "url": "posts/creating-your-first-ai-agent-in-copilot-studio.html",
+        "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+        "date": "2025-11-18",
+        "author": "Autonomous Agentic",
+        "readTime": 5,
+        "tags": ["agents", "tutorials"],
+        "featured": false
+    },
+    {
+        "id": "custom-start-message-copilot-studio",
+        "title": "Personalise Your AI: Changing the Start Message in Copilot Studio",
+        "excerpt": "Learn how to change your Copilot Studio agent's start message to unlock greater customisation. First impressions matter, so why should it be any different for your agent?",
+        "url": "posts/custom-start-message-copilot-studio.html",
+        "image": "../assets/images/ThumbnailCustomMessage.avif",
+        "date": "2025-11-16",
+        "author": "Autonomous Agentic",
+        "readTime": 5,
+        "tags": ["tutorials", "agents"],
+        "featured": true
     }
-  ]
+]

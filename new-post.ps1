@@ -56,6 +56,11 @@ if ([string]::IsNullOrWhiteSpace($imageUrl)) {
     $imageUrl = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop"
 }
 
+# Ensure relative paths start with ../
+if ($imageUrl -notmatch '^https?://' -and $imageUrl -notmatch '^\.\./') {
+    $imageUrl = "../$imageUrl"
+}
+
 Write-Host ""
 Write-Host "Available tags: ai, agents, automation, tutorials" -ForegroundColor Yellow
 $tagsInput = Read-Host "Enter tags (comma-separated, e.g., ai,agents)"
@@ -544,7 +549,20 @@ if (Test-Path $indexFile) {
     }
     
     # Save updated index
-    $indexContent | ConvertTo-Json -Depth 10 -AsArray | Out-File -FilePath $indexFile -Encoding UTF8
+    # Wrap in array for proper JSON formatting (PowerShell 5.1 compatible)
+    if ($indexContent -isnot [array]) {
+        $indexContent = @($indexContent)
+    }
+    "[" | Out-File -FilePath $indexFile -Encoding UTF8 -NoNewline
+    for ($i = 0; $i -lt $indexContent.Count; $i++) {
+        $json = $indexContent[$i] | ConvertTo-Json -Depth 10 -Compress:$false
+        if ($i -lt $indexContent.Count - 1) {
+            "$json," | Out-File -FilePath $indexFile -Encoding UTF8 -Append
+        } else {
+            $json | Out-File -FilePath $indexFile -Encoding UTF8 -Append
+        }
+    }
+    "]" | Out-File -FilePath $indexFile -Encoding UTF8 -Append
 } else {
     Write-Host "Error: Could not find $indexFile" -ForegroundColor Red
     exit 1
