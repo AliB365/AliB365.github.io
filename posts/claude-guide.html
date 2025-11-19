@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude 4 Guide: Safety-First AI | Autonomous Agentic</title>
+    <meta name="description" content="Part 3 of the LLM series explains how Claude 4 balances safety with capability, including strengths, weaknesses, and best fit workloads.">
+    <link rel="canonical" href="https://alib365.github.io/posts/claude-guide.html">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://alib365.github.io/posts/claude-guide.html">
+    <meta property="og:title" content="Claude 4 Guide: Safety-First AI | Autonomous Agentic">
+    <meta property="og:description" content="Part 3 of the LLM series explains how Claude 4 balances safety with capability, including strengths, weaknesses, and best fit workloads.">
+    <meta property="og:image" content="../assets/images/Claude.avif">
+    <meta property="og:article:published_time" content="2025-11-19">
+    <meta property="og:article:author" content="Autonomous Agentic">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://alib365.github.io/posts/claude-guide.html">
+    <meta property="twitter:title" content="Claude 4 Guide: Safety-First AI | Autonomous Agentic">
+    <meta property="twitter:description" content="Part 3 of the LLM series explains how Claude 4 balances safety with capability, including strengths, weaknesses, and best fit workloads.">
+    <meta property="twitter:image" content="../assets/images/Claude.avif">
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="preload" href="../assets/css/style.css" as="style">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Claude 4 Guide: Safety-First AI",
+        "description": "Part 3 of the LLM series explains how Claude 4 balances safety with capability, including strengths, weaknesses, and best fit workloads.",
+        "image": "../assets/images/Claude.avif",
+        "datePublished": "2025-11-19",
+        "dateModified": "2025-11-19",
+        "author": {"@type": "Person","name": "Autonomous Agentic"},
+        "publisher": {"@type": "Organization","name": "Autonomous Agentic","logo": {"@type": "ImageObject","url": "https://alib365.github.io/assets/images/favicon.png"}},
+        "mainEntityOfPage": {"@type": "WebPage","@id": "https://alib365.github.io/posts/claude-guide.html"}
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/images/favicon.png" alt="Autonomous Agentic" class="logo-img">
+                    <span class="logo-text">Autonomous Agentic</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#blog">Articles</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                    <li><a href="../profile.html">Profile</a></li>
+                    <li id="auth-nav-container">
+                        <div id="auth-buttons" class="auth-buttons">
+                            <button id="signin-btn" class="btn btn-secondary btn-nav">Sign In</button>
+                        </div>
+                        <div id="user-menu" class="user-menu" style="display: none;">
+                            <button id="user-menu-btn" class="user-menu-btn">
+                                <span id="user-name-display"></span>
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                    <path d="M6 9L1 4h10z" />
+                                </svg>
+                            </button>
+                            <div id="user-dropdown" class="user-dropdown">
+                                <div class="user-info">
+                                    <div class="user-email" id="user-email-display"></div>
+                                </div>
+                                <button id="signout-btn" class="dropdown-item">Sign Out</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="article-page" id="main-content">
+        <div class="container">
+            <div class="reading-progress-bar"></div>
+            <article class="article-full">
+                <div class="article-actions">
+                    <button class="like-btn" data-post-id="claude-guide" aria-label="Like this post">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                        <span class="like-count">0</span>
+                    </button>
+                    <button class="bookmark-btn" data-post-id="claude-guide" aria-label="Bookmark this post">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="article-header">
+                    <div class="article-tags">
+                        <span class="tag">ai</span>
+                        <span class="tag">claude</span>
+                    </div>
+                    <h1 class="article-title">Claude 4 Guide (Part 3 of 4)</h1>
+                    <div class="article-meta">
+                        <span class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            November 19, 2025
+                        </span>
+                        <span class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            7 min read
+                        </span>
+                        <span class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            Autonomous Agentic
+                        </span>
+                    </div>
+                </div>
+
+                <img src="../assets/images/Claude.avif" alt="Claude Guide" class="article-image" width="900" height="450" loading="eager">
+
+                <div class="article-body">
+                    <div class="callout callout-info" style="margin-bottom:2rem;">
+                        <strong>🎯 What you'll achieve:</strong><br>
+                        Learn when Claude 4 outperforms GPT, how its Constitutional AI training changes outputs, and where the safety-first approach shines.
+                    </div>
+                    <div class="callout callout-tip" style="margin-bottom:2rem;">
+                        <strong>LLM Series Navigation:</strong>
+                        <p>
+                            <a href="./gpt-deep-dive.html">← Part 2 — GPT-5.1 Deep Dive</a>
+                            <span style="margin:0 0.5rem;">|</span>
+                            <a href="./llm-builders-guide.html">Part 4 — Builder's Guide →</a>
+                        </p>
+                    </div>
+
+                    <h2>Why Teams Pick Claude</h2>
+                    <p>Anthropic built Claude 4 for organizations that need accuracy and restraint. The Opus and Sonnet variants prioritize truthful, careful replies—even when prompts wander into risky territory.</p>
+
+                    <h2>Training Material and Alignment</h2>
+                    <p>Claude ingests the same scale of text, code, and multimodal data as GPT. The difference is alignment. Anthropic's <strong>Constitutional AI</strong> approach teaches the model to critique its own answers against a set of principles. The result is a system that self-regulates and flags potentially harmful requests before responding.</p>
+
+                    <h2>What Claude Does Best</h2>
+                    <ul>
+                        <li><strong>Document-heavy work:</strong> Compliance reviews, policy summaries, and knowledge-base QA</li>
+                        <li><strong>Educational content:</strong> Calm explanations with citations and disclaimers</li>
+                        <li><strong>Sensitive domains:</strong> Healthcare, legal, or finance workflows that need conservative behavior</li>
+                        <li><strong>Code audits:</strong> Claude Opus 4.1 excels at long-form code reasoning and refactoring</li>
+                    </ul>
+
+                    <h2>Strengths vs Weaknesses</h2>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;margin:1.5rem 0;">
+                        <div class="callout callout-success">
+                            <strong>✅ Strengths</strong>
+                            <ul style="margin-top:0.5rem;padding-left:1rem;">
+                                <li>Safety guardrails baked into training</li>
+                                <li>Clear, citeable writing style</li>
+                                <li>Great at acknowledging uncertainty</li>
+                                <li>Handles long reasoning chains</li>
+                                <li>Multimodal support (text + documents + images)</li>
+                            </ul>
+                        </div>
+                        <div class="callout callout-warning">
+                            <strong>⚠️ Weaknesses</strong>
+                            <ul style="margin-top:0.5rem;padding-left:1rem;">
+                                <li>Can feel too cautious or formal</li>
+                                <li>Occasionally refuses harmless prompts</li>
+                                <li>Latency higher than GPT Instant</li>
+                                <li>Closed-source with usage policies</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2>When to Choose Claude 4</h2>
+                    <p>Pick Claude when miscommunication carries real risk. It's the safer co-pilot for knowledge workers, regulated industries, and education platforms. Keep GPT-5.1 in your toolkit for creativity and speed, but lean on Claude when the conversation needs more guardrails.</p>
+
+                    <div class="callout callout-tip" style="margin:2rem 0;">
+                        <strong>Implementation hint:</strong> Use Claude for message drafting in compliance-heavy workflows, then hand off to GPT for stylistic polish if needed.</div>
+
+                    <h2>Continue the Series</h2>
+                    <p>Part 4 wraps up with Llama, Gemini, and a practical decision framework for combining models.</p>
+                    <div class="callout callout-info" style="margin-top:1.5rem;">
+                        <strong>Next up:</strong> <a href="./llm-builders-guide.html">Part 4 — Builders' Guide</a>
+                    </div>
+                </div>
+
+                <div class="article-footer">
+                    <div class="article-tags-footer">
+                        <strong>Tags:</strong>
+                        <span class="tag">ai</span>
+                        <span class="tag">claude</span>
+                    </div>
+                </div>
+            </article>
+
+            <div class="share-section">
+                <h3>Share this article</h3>
+                <div class="share-buttons">
+                    <button class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                        </svg>
+                        Twitter
+                    </button>
+                    <button class="share-btn linkedin" data-platform="linkedin" aria-label="Share on LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.564v11.452zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                        LinkedIn
+                    </button>
+                    <button class="share-btn facebook" data-platform="facebook" aria-label="Share on Facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                        Facebook
+                    </button>
+                    <button class="share-btn copy" data-platform="copy" aria-label="Copy link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                        Copy Link
+                    </button>
+                </div>
+            </div>
+
+            <div class="related-posts-section">
+                <h3>Related Articles</h3>
+                <div class="related-posts-grid" id="related-posts"></div>
+            </div>
+
+            <div class="article-navigation">
+                <a href="../index.html#blog" class="btn btn-primary">← Back to Home</a>
+            </div>
+
+            <section class="comments-section-wrapper">
+                <div class="comments-section">
+                    <h2 class="comments-title">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span id="comment-count">0 Comments</span>
+                    </h2>
+                    <div class="comment-form">
+                        <div id="comment-auth-prompt" class="comment-auth-prompt">
+                            <p>Please <a href="#" id="comment-signin-link">sign in</a> to leave a comment.</p>
+                        </div>
+                        <div id="comment-form-container" class="comment-form-container" style="display: none;">
+                            <textarea id="comment-input" placeholder="Share your thoughts..." maxlength="1000" rows="4"></textarea>
+                            <div class="comment-form-actions">
+                                <span class="comment-char-count">
+                                    <span id="comment-char-count">0</span>/1000
+                                </span>
+                                <button id="post-comment-btn" class="btn btn-primary">Post Comment</button>
+                            </div>
+                            <div id="comment-error" class="comment-error"></div>
+                        </div>
+                    </div>
+                    <div id="comments-list" class="comments-list">
+                        <p class="loading-message">Loading comments...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Autonomous Agentic. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../firebase-config.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script type="module" src="../assets/js/comments.js"></script>
+    <script type="module" src="../assets/js/likes.js"></script>
+    <script type="module" src="../assets/js/progress-bar.js"></script>
+    <script type="module" src="../assets/js/toc.js"></script>
+    <script type="module" src="../assets/js/profile.js"></script>
+    <script type="module" src="../assets/js/achievements.js"></script>
+    <script type="module" src="../assets/js/preferences.js"></script>
+    <script src="../assets/js/shared.js"></script>
+    <script type="module">
+        import { handleRelatedArticles } from '../assets/js/related.js';
+        import { initComments, postComment } from '../assets/js/comments.js';
+        import { initPostActions, initShareButtons } from '../assets/js/likes.js';
+        import { initProgressBar } from '../assets/js/progress-bar.js';
+        import { initTableOfContents } from '../assets/js/toc.js';
+        import { trackReading } from '../assets/js/profile.js';
+        import { checkAchievements } from '../assets/js/achievements.js';
+        
+        const postId = 'claude-guide';
+        const postTitle = 'Claude 4 Guide';
+        
+        handleRelatedArticles('.related-posts-section', '#related-posts');
+        
+        function initializeFeatures() {
+            initPostActions(postId, postTitle);
+            initShareButtons();
+            initProgressBar();
+            initTableOfContents();
+            initComments(postId);
+        }
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.firebaseApp) {
+                initializeFeatures();
+            } else {
+                const checkFirebase = setInterval(() => {
+                    if (window.firebaseApp) {
+                        clearInterval(checkFirebase);
+                        initializeFeatures();
+                    }
+                }, 100);
+            }
+            
+            window.addEventListener('auth-state-changed', async (e) => {
+                const user = e.detail.user;
+                const authPrompt = document.getElementById('comment-auth-prompt');
+                const formContainer = document.getElementById('comment-form-container');
+                
+                if (user) {
+                    if (authPrompt) authPrompt.style.display = 'none';
+                    if (formContainer) formContainer.style.display = 'block';
+                    trackReading(user.uid, postId, postTitle);
+                    checkAchievements(user.uid);
+                } else {
+                    if (authPrompt) authPrompt.style.display = 'block';
+                    if (formContainer) formContainer.style.display = 'none';
+                }
+            });
+            
+            const commentSigninLink = document.getElementById('comment-signin-link');
+            if (commentSigninLink) {
+                commentSigninLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const signinBtn = document.getElementById('signin-btn');
+                    if (signinBtn) signinBtn.click();
+                });
+            }
+            
+            const postCommentBtn = document.getElementById('post-comment-btn');
+            if (postCommentBtn) {
+                postCommentBtn.addEventListener('click', postComment);
+            }
+            
+            const commentInput = document.getElementById('comment-input');
+            if (commentInput) {
+                commentInput.addEventListener('input', (e) => {
+                    const charCount = document.getElementById('comment-char-count');
+                    if (charCount) charCount.textContent = e.target.value.length;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

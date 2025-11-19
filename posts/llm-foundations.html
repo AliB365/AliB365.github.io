@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Foundations: How Large Language Models Work | Autonomous Agentic</title>
+    <meta name="description" content="Part 1 of our LLM guide: learn the fundamentals of large language models, how tokenization works, common strengths and limits, and what to expect before choosing a model.">
+    <link rel="canonical" href="https://alib365.github.io/posts/llm-foundations.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://alib365.github.io/posts/llm-foundations.html">
+    <meta property="og:title" content="LLM Foundations: How Large Language Models Work | Autonomous Agentic">
+    <meta property="og:description" content="Part 1 of our LLM guide: learn the fundamentals of large language models, how tokenization works, common strengths and limits, and what to expect before choosing a model.">
+    <meta property="og:image" content="../assets/images/WhatAreLLMs.avif">
+    <meta property="og:article:published_time" content="2025-11-19">
+    <meta property="og:article:author" content="Autonomous Agentic">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://alib365.github.io/posts/llm-foundations.html">
+    <meta property="twitter:title" content="LLM Foundations: How Large Language Models Work | Autonomous Agentic">
+    <meta property="twitter:description" content="Part 1 of our LLM guide: learn the fundamentals of large language models, how tokenization works, common strengths and limits, and what to expect before choosing a model.">
+    <meta property="twitter:image" content="../assets/images/WhatAreLLMs.avif">
+    
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="preload" href="../assets/css/style.css" as="style">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "LLM Foundations: How Large Language Models Work",
+        "description": "Part 1 of our LLM guide: learn the fundamentals of large language models, how tokenization works, common strengths and limits, and what to expect before choosing a model.",
+        "image": "../assets/images/WhatAreLLMs.avif",
+        "datePublished": "2025-11-19",
+        "dateModified": "2025-11-19",
+        "author": {"@type": "Person","name": "Autonomous Agentic"},
+        "publisher": {"@type": "Organization","name": "Autonomous Agentic","logo": {"@type": "ImageObject","url": "https://alib365.github.io/assets/images/favicon.png"}},
+        "mainEntityOfPage": {"@type": "WebPage","@id": "https://alib365.github.io/posts/llm-foundations.html"}
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/images/favicon.png" alt="Autonomous Agentic" class="logo-img">
+                    <span class="logo-text">Autonomous Agentic</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#blog">Articles</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                    <li><a href="../profile.html">Profile</a></li>
+                    <li id="auth-nav-container">
+                        <div id="auth-buttons" class="auth-buttons">
+                            <button id="signin-btn" class="btn btn-secondary btn-nav">Sign In</button>
+                        </div>
+                        <div id="user-menu" class="user-menu" style="display: none;">
+                            <button id="user-menu-btn" class="user-menu-btn">
+                                <span id="user-name-display"></span>
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                    <path d="M6 9L1 4h10z" />
+                                </svg>
+                            </button>
+                            <div id="user-dropdown" class="user-dropdown">
+                                <div class="user-info">
+                                    <div class="user-email" id="user-email-display"></div>
+                                </div>
+                                <button id="signout-btn" class="dropdown-item">Sign Out</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="article-page" id="main-content">
+        <div class="container">
+            <div class="reading-progress-bar"></div>
+
+            <article class="article-full">
+                <div class="article-actions">
+                    <button class="like-btn" data-post-id="llm-foundations" aria-label="Like this post">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                        <span class="like-count">0</span>
+                    </button>
+                    <button class="bookmark-btn" data-post-id="llm-foundations" aria-label="Bookmark this post">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="article-header">
+                    <div class="article-tags">
+                        <span class="tag">ai</span>
+                        <span class="tag">llm</span>
+                    </div>
+                    <h1 class="article-title">LLM Foundations: How Large Language Models Work (Part 1 of 4)</h1>
+                    <div class="article-meta">
+                        <span class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            November 19, 2025
+                        </span>
+                        <span class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            9 min read
+                        </span>
+                        <span class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            Autonomous Agentic
+                        </span>
+                    </div>
+                </div>
+                
+                <img src="../assets/images/WhatAreLLMs.avif" alt="LLM Foundations" class="article-image" width="900" height="450" loading="eager">
+                
+                <div class="article-body">
+                    <div class="callout callout-info" style="margin-bottom:2rem;">
+                        <strong>🎯 What you'll achieve:</strong><br>
+                        Understand the core building blocks of large language models so you can evaluate GPT, Claude, Llama, and Gemini with confidence in later parts of this series.
+                    </div>
+                    <div class="callout callout-tip" style="margin-bottom:2rem;">
+                        <strong>LLM Series Navigation:</strong>
+                        <p>This is Part 1 of 4. Continue with <a href="./gpt-deep-dive.html">Part 2 — GPT-5.1 Deep Dive</a> when you're ready.</p>
+                    </div>
+                    
+                    <h2>Introduction</h2>
+                    <p>Large language models have exploded over the past two years. Hugging Face alone lists more than 700,000 options, and that number is growing daily. Instead of trying to study every release, you'll get further by understanding the fundamentals that all great models share.</p>
+                    <p>This four-part series breaks the topic into digestible stages:</p>
+                    <ul>
+                        <li><strong>Part 1 (this article):</strong> The fundamentals you must know before choosing a model</li>
+                        <li><strong>Part 2:</strong> A deep dive on OpenAI's GPT-5.1 family</li>
+                        <li><strong>Part 3:</strong> How Anthropic's Claude 4 approaches safety-first AI</li>
+                        <li><strong>Part 4:</strong> Llama vs. Gemini trade-offs and a practical decision guide</li>
+                    </ul>
+                    <p>Let's start by demystifying what LLMs actually do.</p>
+                    
+                    <h2>How Large Language Models Work</h2>
+                    <h3>Tokens, Not Words</h3>
+                    <p>Every interaction with an LLM begins with <strong>tokenization</strong>. Your prompt is split into smaller pieces called tokens—"Hello, World!" becomes ["Hello", ",", "World", "!"]. Tokens are how models understand structure. They can represent entire words, subwords, punctuation, or even whitespace.</p>
+                    <p>Once tokenized, the model predicts the most likely next token based on everything it has seen. The output you read is assembled token by token, which is why some responses visibly "stream" in real time.</p>
+                    
+                    <h3>Training Data and Patterns</h3>
+                    <p>Modern LLMs are trained on massive datasets that blend web pages, books, articles, documentation, and code. They don't memorize all of that content; instead, they learn statistical patterns about how ideas connect. This pattern matching lets models form coherent paragraphs, switch writing styles, and solve problems they've never seen verbatim.</p>
+                    
+                    <h3>What LLMs Do Well</h3>
+                    <ul>
+                        <li><strong>Conversational interfaces:</strong> Personal assistants, support chatbots, and brainstorming companions</li>
+                        <li><strong>Content generation:</strong> Articles, emails, creative briefs, marketing copy, and social posts</li>
+                        <li><strong>Code assistance:</strong> Writing, refactoring, and explaining units of code across languages</li>
+                        <li><strong>Summaries and translation:</strong> Distilling long documents and moving between languages quickly</li>
+                        <li><strong>Knowledge retrieval:</strong> Answering questions from large knowledge bases or notes</li>
+                    </ul>
+                    
+                    <h3>Limits You Need to Respect</h3>
+                    <p>Knowing the guardrails helps you avoid frustration:</p>
+                    <ul>
+                        <li><strong>Hallucinations:</strong> LLMs can invent confident but incorrect answers when data is sparse</li>
+                        <li><strong>Training cutoff:</strong> Each model only knows events up to a certain date</li>
+                        <li><strong>Bias:</strong> Models mirror the gaps and biases present in their training sets</li>
+                        <li><strong>Context windows:</strong> Exceeding the maximum token count will cause earlier information to drop</li>
+                        <li><strong>No true understanding:</strong> Models pattern-match—they don't possess lived experience or intent</li>
+                    </ul>
+                    
+                    <h2>Where to Go Next</h2>
+                    <p>With the fundamentals locked in, you're ready to evaluate specific model families without getting lost in jargon. Continue the series to explore concrete strengths, weaknesses, and pricing strategies.</p>
+                    <div class="callout callout-tip" style="margin: 2rem 0;">
+                        <strong>Next up:</strong> <a href="./gpt-deep-dive.html">Part 2 — GPT-5.1 Deep Dive</a>
+                    </div>
+                    
+                    <div class="callout callout-success" style="margin-top:2rem;">
+                        <strong>🎉 Keep Going!</strong><br>
+                        Bookmark this guide and move on to Part 2 when you're ready to compare GPT variants for speed, accuracy, and cost.
+                    </div>
+                </div>
+                <div class="article-footer">
+                    <div class="article-tags-footer">
+                        <strong>Tags:</strong>
+                        <span class="tag">ai</span>
+                        <span class="tag">llm</span>
+                    </div>
+                </div>
+            </article>
+
+            <div class="share-section">
+                <h3>Share this article</h3>
+                <div class="share-buttons">
+                    <button class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                        </svg>
+                        Twitter
+                    </button>
+                    <button class="share-btn linkedin" data-platform="linkedin" aria-label="Share on LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                        LinkedIn
+                    </button>
+                    <button class="share-btn facebook" data-platform="facebook" aria-label="Share on Facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                        Facebook
+                    </button>
+                    <button class="share-btn copy" data-platform="copy" aria-label="Copy link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                        Copy Link
+                    </button>
+                </div>
+            </div>
+
+            <div class="related-posts-section">
+                <h3>Related Articles</h3>
+                <div class="related-posts-grid" id="related-posts"></div>
+            </div>
+
+            <div class="article-navigation">
+                <a href="../index.html#blog" class="btn btn-primary">← Back to Home</a>
+            </div>
+
+            <section class="comments-section-wrapper">
+                <div class="comments-section">
+                    <h2 class="comments-title">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span id="comment-count">0 Comments</span>
+                    </h2>
+                    <div class="comment-form">
+                        <div id="comment-auth-prompt" class="comment-auth-prompt">
+                            <p>Please <a href="#" id="comment-signin-link">sign in</a> to leave a comment.</p>
+                        </div>
+                        <div id="comment-form-container" class="comment-form-container" style="display: none;">
+                            <textarea id="comment-input" placeholder="Share your thoughts..." maxlength="1000" rows="4"></textarea>
+                            <div class="comment-form-actions">
+                                <span class="comment-char-count">
+                                    <span id="comment-char-count">0</span>/1000
+                                </span>
+                                <button id="post-comment-btn" class="btn btn-primary">Post Comment</button>
+                            </div>
+                            <div id="comment-error" class="comment-error"></div>
+                        </div>
+                    </div>
+                    <div id="comments-list" class="comments-list">
+                        <p class="loading-message">Loading comments...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Autonomous Agentic. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../firebase-config.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script type="module" src="../assets/js/comments.js"></script>
+    <script type="module" src="../assets/js/likes.js"></script>
+    <script type="module" src="../assets/js/progress-bar.js"></script>
+    <script type="module" src="../assets/js/toc.js"></script>
+    <script type="module" src="../assets/js/profile.js"></script>
+    <script type="module" src="../assets/js/achievements.js"></script>
+    <script type="module" src="../assets/js/preferences.js"></script>
+    <script src="../assets/js/shared.js"></script>
+    <script type="module">
+        import { handleRelatedArticles } from '../assets/js/related.js';
+        import { initComments, postComment } from '../assets/js/comments.js';
+        import { initPostActions, initShareButtons } from '../assets/js/likes.js';
+        import { initProgressBar } from '../assets/js/progress-bar.js';
+        import { initTableOfContents } from '../assets/js/toc.js';
+        import { trackReading } from '../assets/js/profile.js';
+        import { checkAchievements } from '../assets/js/achievements.js';
+        
+        const postId = 'llm-foundations';
+        const postTitle = 'LLM Foundations: How Large Language Models Work';
+        
+        handleRelatedArticles('.related-posts-section', '#related-posts');
+        
+        function initializeFeatures() {
+            initPostActions(postId, postTitle);
+            initShareButtons();
+            initProgressBar();
+            initTableOfContents();
+            initComments(postId);
+        }
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.firebaseApp) {
+                initializeFeatures();
+            } else {
+                const checkFirebase = setInterval(() => {
+                    if (window.firebaseApp) {
+                        clearInterval(checkFirebase);
+                        initializeFeatures();
+                    }
+                }, 100);
+            }
+            
+            window.addEventListener('auth-state-changed', async (e) => {
+                const user = e.detail.user;
+                const authPrompt = document.getElementById('comment-auth-prompt');
+                const formContainer = document.getElementById('comment-form-container');
+                
+                if (user) {
+                    if (authPrompt) authPrompt.style.display = 'none';
+                    if (formContainer) formContainer.style.display = 'block';
+                    trackReading(user.uid, postId, postTitle);
+                    checkAchievements(user.uid);
+                } else {
+                    if (authPrompt) authPrompt.style.display = 'block';
+                    if (formContainer) formContainer.style.display = 'none';
+                }
+            });
+            
+            const commentSigninLink = document.getElementById('comment-signin-link');
+            if (commentSigninLink) {
+                commentSigninLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const signinBtn = document.getElementById('signin-btn');
+                    if (signinBtn) signinBtn.click();
+                });
+            }
+            
+            const postCommentBtn = document.getElementById('post-comment-btn');
+            if (postCommentBtn) {
+                postCommentBtn.addEventListener('click', postComment);
+            }
+            
+            const commentInput = document.getElementById('comment-input');
+            if (commentInput) {
+                commentInput.addEventListener('input', (e) => {
+                    const charCount = document.getElementById('comment-char-count');
+                    if (charCount) charCount.textContent = e.target.value.length;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
