@@ -165,55 +165,90 @@
                 
                 <div class="article-body">
                     <div class="callout callout-info" style="margin-bottom:2rem;">
-                        <strong>✨ Why change the start message?</strong><br>
-                        The first message your agent sends sets the tone for every conversation. Make it memorable, helpful, and on-brand to set a good opener for your users!
+                        <strong>🎯 What you'll achieve:</strong><br>
+                        In just a few minutes, you'll learn how to customize your agent's first impression by changing the start message. Make your agent feel unique, on-brand, and instantly helpful from the very first interaction.
                     </div>
                     
                     <h2>Introduction</h2>
-                    <p>Copilot Studio has hidden the ability to change the agent's start message, but it is actually very easy to do. After this short article, you will be able to change your agent's starter message with ease.</p>
+                    <p>First impressions matter—especially for AI agents! The start message is the first thing users see when they begin a conversation with your agent, setting expectations and establishing the tone for the entire interaction. While Copilot Studio makes this customization easy, the option is somewhat hidden in the system topics.</p>
                     
-                    <h2>Main section</h2>
-                    <p>When you create a new agent, whether from scratch or using Copilot Studio, it will always have the same starter message:</p>
+                    <p>By default, every new agent greets users with a generic message that doesn't reflect your brand or the agent's specific purpose. In this guide, you'll discover exactly where to find and customize this message, transforming that generic greeting into something meaningful and memorable for your users.</p>
+                    
+                    <h2>Understanding the Default Start Message</h2>
+                    <p>When you create a new agent in Copilot Studio—whether from scratch or using a template—it comes with a standard greeting:</p>
                     <blockquote>
                       Hello, I'm Copilot Studio Demo, a virtual assistant. Just so you are aware, I sometimes use AI to answer your questions. If you provided a website during creation, try asking me about it! Next try giving me some more knowledge by setting up generative AI.                    </blockquote>
-                    <p>Below, I will show, step by step, how to change the agent's “Conversation start”.</p>
+                    <p>This message is functional but impersonal. It doesn't tell users what your agent specializes in, what problems it can solve, or how it can help them specifically. Let's change that!</p>
 
                     <div class="callout callout-tip" style="margin-bottom:2rem;">
-                        <strong>💡 Pro Tip:</strong> Personalize your start message with your agent's name, a friendly greeting, or a quick tip about what it can do!
+                        <strong>💡 Pro Tip:</strong> When crafting your start message, include your agent's name, a warm greeting, and a brief description of what it can help with. For example: "Hi! I'm Sarah, your HR assistant. I can help you with benefits questions, time-off requests, and company policy information. What can I help you with today?"
                     </div>
 
+                    <h2>Customizing Your Agent's Start Message</h2>
+                    <p>Follow these simple steps to create a start message that reflects your agent's personality and purpose. The process involves navigating to a system topic that controls the conversation start behavior.</p>
+
                     <ol class="steps-list">
-                        <li><strong>Open your agent in Copilot Studio</strong><br>
-                            Go to <a href="https://copilotstudio.microsoft.com/" target="_blank" rel="noopener">Copilot Studio</a> and open the agent you want to edit.<br>
+                        <li><strong>Open Your Agent in Copilot Studio</strong><br>
+                            Navigate to <a href="https://copilotstudio.microsoft.com/" target="_blank" rel="noopener">copilotstudio.microsoft.com</a> and select the agent you want to customize from your dashboard. You'll land on the agent's overview page, which shows key metrics and quick access to configuration options.<br><br>
+                            
+                            This overview page is your home base for managing all aspects of your agent, from testing to deployment.<br>
                             <div class="image-zoom-container">
-                                <img src="../assets/images/AgentOverviewTab.png" alt="Copilot Studio Agent Overview Page" class="article-image-step" width="900" height="600" loading="lazy">
+                                <img src="../assets/images/AgentOverviewTab.png" alt="Copilot Studio Agent Overview page showing the main dashboard" class="article-image-step" width="900" height="600" loading="lazy">
                             </div>
                         </li>
-                        <li><strong>Navigate to the 'Topics' tab</strong><br>
-                            At the top navigation, click on the 'Topics' tab to access the conversation topics for your agent.<br>
+                        <li><strong>Navigate to the Topics Section</strong><br>
+                            In the top navigation bar, click on the <strong>'Topics'</strong> tab. Topics are the building blocks of your agent's conversational ability—each topic handles a specific type of user request or interaction.<br><br>
+                            
+                            The Topics page displays all the conversation flows you've created, but we're looking for something more fundamental: the system topics that control core behaviors.<br>
                             <div class="image-zoom-container">
-                                <img src="../assets/images/AgentTopicTab.png" alt="Copilot Studio Topics Tab" class="article-image-step zoomable" style="object-fit: cover; object-position: top; transform-origin: 40% 0%;" width="900" height="600" loading="lazy">
+                                <img src="../assets/images/AgentTopicTab.png" alt="Copilot Studio Topics tab showing available topics" class="article-image-step zoomable" style="object-fit: cover; object-position: top; transform-origin: 40% 0%;" width="900" height="600" loading="lazy">
                             </div>
                         </li>
-                        <li><strong>Open the 'Conversation start' topic</strong><br>
-                            Next to the 'Custom' selected filter button, click the 'System' button. This will display all the predefined system topics, and you should see one called 'Conversation Start'. This is the topic that contains the starter message.<br>
+                        <li><strong>Access System Topics</strong><br>
+                            By default, you'll see your custom topics. To access the built-in system topics, look for the filter options near the top of the page. Next to the <strong>'Custom'</strong> filter button, click the <strong>'System'</strong> button.<br><br>
+                            
+                            This reveals all the predefined system topics that control essential agent behaviors. You'll see several system topics, but the one we want is called <strong>'Conversation Start'</strong>—this is where the magic happens! System topics are powerful because they control fundamental aspects of how your agent behaves.<br>
                             <div class="image-zoom-container">
-                              <img src="../assets/images/AgentConversationStartTopic.png" alt="Copilot Studio Conversation Start Topic" class="article-image-step" style="object-fit: cover; object-position: top;" width="900" height="600" loading="lazy">
+                              <img src="../assets/images/AgentConversationStartTopic.png" alt="System topics view showing Conversation Start topic" class="article-image-step" style="object-fit: cover; object-position: top;" width="900" height="600" loading="lazy">
                             </div>  
                         </li>
-                        <li><strong>Edit the start message</strong><br>
-                            Click on the 'Conversation Start' topic to open it. To edit the message just click on the text in the 'Message' box. You can edit this message to whatever you like.<br>
+                        <li><strong>Edit the Start Message</strong><br>
+                            Click on the <strong>'Conversation Start'</strong> topic to open its editor. You'll see the conversation flow, which includes a 'Message' node containing the default greeting text.<br><br>
+                            
+                            Simply click directly on the text inside the 'Message' box to start editing. You can completely replace the default message with your custom greeting. Consider including:<br>
+                            <ul>
+                                <li>A personalized greeting with your agent's name</li>
+                                <li>A brief description of what the agent can help with</li>
+                                <li>An invitation to ask questions or start a task</li>
+                                <li>Your brand's tone and personality</li>
+                            </ul><br>
+                            
+                            You can also add formatting, emojis, or multiple lines to make your message more engaging and readable.<br>
                             <div class="image-zoom-container">
-                                <img src="../assets/images/AgentEditConversationStartMessage.png" alt="Copilot Studio Edit Conversation Start Message" class="article-image-step zoomable" style="transform-origin: 99% 100%;" width="900" height="600" loading="lazy">
+                                <img src="../assets/images/AgentEditConversationStartMessage.png" alt="Editing the conversation start message in the message node" class="article-image-step zoomable" style="transform-origin: 99% 100%;" width="900" height="600" loading="lazy">
                             </div>
                         </li>
-                        <li><strong>Save your changes</strong><br>
-                            Once you have edited the message, make sure to click the 'Save' button at the top right to save your changes.
+                        <li><strong>Save Your Changes</strong><br>
+                            Once you're happy with your new start message, click the <strong>'Save'</strong> button in the top right corner of the page. This commits your changes to the agent.<br><br>
+                            
+                            Your changes are saved but not yet live—you'll need to publish your agent for users to see the new greeting. You can test it immediately using the built-in test chat to see how it looks before publishing to production.
                         </li>
                     </ol>
 
+                    <h2>Best Practices for Start Messages</h2>
+                    <p>Now that you know how to change the start message, here are some tips to make it as effective as possible:</p>
+                    <ul>
+                        <li><strong>Keep it concise:</strong> Users should be able to read and understand your message in 3-5 seconds</li>
+                        <li><strong>Be specific:</strong> Tell users exactly what your agent can do rather than using vague language</li>
+                        <li><strong>Set expectations:</strong> Let users know if there are topics the agent can't help with</li>
+                        <li><strong>Use friendly language:</strong> Write like a helpful colleague, not a formal manual</li>
+                        <li><strong>Include a call to action:</strong> Invite users to ask a question or try a specific feature</li>
+                        <li><strong>Test with real users:</strong> Get feedback on whether your message is clear and welcoming</li>
+                    </ul>
+
                     <div class="callout callout-success" style="margin-top:2rem;">
-                        <strong>🎉 That's it!</strong> Your agent will now greet users with your custom message. Try chatting with it to see the new experience in action.
+                        <strong>🎉 You Did It!</strong><br>
+                        Your agent now has a personalized start message that reflects its purpose and your brand. This small change makes a big difference in user experience—users will immediately understand what your agent can do and feel more confident engaging with it. Test it out in the chat window and see the difference for yourself!
                     </div>
                 </div>
                 
