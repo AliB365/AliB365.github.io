@@ -278,23 +278,97 @@ $htmlContent = @"
                 <img src="$imageUrl" alt="$title" class="article-image" width="900" height="450" loading="eager">
                 
                 <div class="article-body">
-                    <p>$excerpt</p>
+                    <div class="callout callout-info" style="margin-bottom:2rem;">
+                        <strong>🎯 What you'll achieve:</strong><br>
+                        [Describe what the reader will learn or be able to do after reading this article. Make it specific and outcome-focused.]
+                    </div>
                     
                     <h2>Introduction</h2>
-                    <p>Start writing your article content here...</p>
+                    <p>[Explain why this topic matters and what problem it solves. Set the context for your readers and help them understand the value they'll get from this guide.]</p>
                     
-                    <h2>Main Section</h2>
-                    <p>Add your main content here. You can use:</p>
+                    <p>[Add another paragraph providing more background or explaining the current state of things before your solution.]</p>
+                    
+                    <div class="callout callout-tip" style="margin-bottom:2rem;">
+                        <strong>💡 Pro Tip:</strong> [Share a helpful tip, best practice, or insider knowledge that will make the reader's experience better. Include a specific example if possible.]
+                    </div>
+                    
+                    <h2>Main Section Title</h2>
+                    <p>[Introduce the main content. If you're providing step-by-step instructions, explain what the reader is about to do and why these steps are important.]</p>
+                    
+                    <h3>Option 1: Using a Numbered List for Steps</h3>
+                    <p>Use this format when you have sequential steps that should be followed in order:</p>
+                    
+                    <ol class="steps-list">
+                        <li><strong>First Step Title</strong><br>
+                            Provide detailed instructions for this step. Explain what the user needs to do and why. You can include:<br><br>
+                            
+                            Additional context or explanation about this step. Mention any important details or things to watch out for.<br>
+                            <div class="image-zoom-container">
+                                <img src="../assets/images/placeholder.png" alt="Description of what this image shows" class="article-image-step" width="900" height="600" loading="lazy">
+                            </div>
+                        </li>
+                        
+                        <li><strong>Second Step Title</strong><br>
+                            More detailed instructions. Use the <strong>'Bold'</strong> styling for button names and UI elements to make them stand out.<br><br>
+                            
+                            Explain what happens when they complete this step and what they should see.<br>
+                            <div class="image-zoom-container">
+                                <img src="../assets/images/placeholder.png" alt="Another helpful screenshot" class="article-image-step zoomable" style="object-fit: cover; object-position: top; transform-origin: 40% 0%;" width="900" height="600" loading="lazy">
+                            </div>
+                        </li>
+                        
+                        <li><strong>Third Step Title</strong><br>
+                            Continue with clear instructions. You can include sub-lists for additional details:<br>
+                            <ul>
+                                <li>Sub-point one with specific detail</li>
+                                <li>Sub-point two with additional information</li>
+                                <li>Sub-point three with helpful context</li>
+                            </ul><br>
+                            
+                            Wrap up this step with any final notes or what comes next.
+                        </li>
+                    </ol>
+                    
+                    <h3>Option 2: Using Bullet Points for Non-Sequential Information</h3>
+                    <p>Use bullet points when the order doesn't matter or you're listing features, benefits, or options:</p>
                     <ul>
-                        <li>Bullet points for lists</li>
-                        <li>Bold text with <strong>strong</strong> tags</li>
-                        <li>Code blocks with <code>pre</code> and <code>code</code> tags</li>
+                        <li><strong>Key Feature One:</strong> Explain this feature and why it's valuable</li>
+                        <li><strong>Key Feature Two:</strong> Describe this benefit and how users can leverage it</li>
+                        <li><strong>Key Feature Three:</strong> Detail this option and when to use it</li>
+                        <li><strong>Key Feature Four:</strong> Share another important aspect</li>
                     </ul>
                     
-                    <h2>Conclusion</h2>
-                    <p>Wrap up your article with a conclusion...</p>
+                    <h2>Additional Section (Optional)</h2>
+                    <p>Add more sections as needed for your content. Break up long articles with multiple H2 headings to improve readability and help with the table of contents.</p>
                     
-                    <blockquote>Add a memorable quote or key takeaway here.</blockquote>
+                    <blockquote>
+                        Use blockquotes to highlight important information, quotes, or key takeaways. This is great for default values, warning messages, or memorable statements.
+                    </blockquote>
+                    
+                    <h2>Best Practices</h2>
+                    <p>Near the end of your article, include practical tips that help readers succeed:</p>
+                    <ul>
+                        <li><strong>Best Practice 1:</strong> Explain why this matters and how to implement it</li>
+                        <li><strong>Best Practice 2:</strong> Share another tip with specific guidance</li>
+                        <li><strong>Best Practice 3:</strong> Provide actionable advice readers can use immediately</li>
+                        <li><strong>Best Practice 4:</strong> Include any common pitfalls to avoid</li>
+                    </ul>
+                    
+                    <h2>What's Next?</h2>
+                    <p>Help readers understand what they can do after mastering this topic. Point them to related features, advanced techniques, or next steps in their journey.</p>
+                    
+                    <p>You might want to mention:</p>
+                    <ul>
+                        <li><strong>Advanced feature:</strong> Briefly describe a more complex capability they can explore</li>
+                        <li><strong>Related topic:</strong> Suggest another area that builds on this knowledge</li>
+                        <li><strong>Integration options:</strong> Explain how this connects with other systems</li>
+                        <li><strong>Further resources:</strong> Link to documentation or additional learning materials</li>
+                    </ul>
+                    
+                    <div class="callout callout-success" style="margin-top:2rem;">
+                        <strong>🎉 You Did It!</strong><br>
+                        [Provide an encouraging closing message that celebrates what they've learned. Reinforce the value they've gained and encourage them to apply their new knowledge. Make it personal and motivating!]
+                    </div>
                 </div>
                 
                 <div class="article-footer">
