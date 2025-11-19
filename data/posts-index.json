@@ -1,26 +1,43 @@
-﻿[
-    {
-        "id": "creating-your-first-ai-agent-in-copilot-studio",
-        "title": "Creating your first AI Agent in Copilot Studio",
-        "excerpt": "This is a simple, non-production agent built to demonstrate the initial steps of creating a copilot in Copilot Studio. It answers basic general questions and is used for testing and training only.",
-        "url": "posts/creating-your-first-ai-agent-in-copilot-studio.html",
-        "image": "../assets/images/CreatingFirstAgent.avif",
-        "date": "2025-11-18",
-        "author": "Autonomous Agentic",
-        "readTime": 5,
-        "tags": ["agents", "tutorials"],
-        "featured": false
-    },
-    {
-        "id": "custom-start-message-copilot-studio",
-        "title": "Personalise Your AI: Changing the Start Message in Copilot Studio",
-        "excerpt": "Learn how to change your Copilot Studio agent's start message to unlock greater customisation. First impressions matter, so why should it be any different for your agent?",
-        "url": "posts/custom-start-message-copilot-studio.html",
-        "image": "../assets/images/ThumbnailCustomMessage.avif",
-        "date": "2025-11-16",
-        "author": "Autonomous Agentic",
-        "readTime": 5,
-        "tags": ["tutorials", "agents"],
-        "featured": true
-    }
+﻿[{
+    "id":  "llm",
+    "title":  "Large Language Models: How They Work and What They Do",
+    "excerpt":  "A friendly, nontechnical guide to large language models (LLMs). Learn how they work, what they’re good at, common uses (chat, writing, coding, search), and how to choose one — explained for beginners.",
+    "url":  "posts/llm.html",
+    "image":  "../assets/images/WhatAreLLMs.avif",
+    "date":  "2025-11-19",
+    "author":  "Autonomous Agentic",
+    "readTime":  30,
+    "tags":  ["ai"],
+    "featured":  false
+},
+{
+    "id":  "creating-your-first-ai-agent-in-copilot-studio",
+    "title":  "Creating your first AI Agent in Copilot Studio",
+    "excerpt":  "This is a simple, non-production agent built to demonstrate the initial steps of creating a copilot in Copilot Studio. It answers basic general questions and is used for testing and training only.",
+    "url":  "posts/creating-your-first-ai-agent-in-copilot-studio.html",
+    "image":  "../assets/images/CreatingFirstAgent.avif",
+    "date":  "2025-11-18",
+    "author":  "Autonomous Agentic",
+    "readTime":  5,
+    "tags":  [
+                 "agents",
+                 "tutorials"
+             ],
+    "featured":  false
+},
+{
+    "id":  "custom-start-message-copilot-studio",
+    "title":  "Personalise Your AI: Changing the Start Message in Copilot Studio",
+    "excerpt":  "Learn how to change your Copilot Studio agent\u0027s start message to unlock greater customisation. First impressions matter, so why should it be any different for your agent?",
+    "url":  "posts/custom-start-message-copilot-studio.html",
+    "image":  "../assets/images/ThumbnailCustomMessage.avif",
+    "date":  "2025-11-16",
+    "author":  "Autonomous Agentic",
+    "readTime":  5,
+    "tags":  [
+                 "tutorials",
+                 "agents"
+             ],
+    "featured":  true
+}
 ]

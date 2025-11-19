@@ -518,8 +518,8 @@ class AuthUI {
         const userEmailDisplay = document.getElementById('user-email-display');
         
         // Remove loading state
-        if (authContainer) {
-            authContainer.classList.remove('loading');
+        if (authButtons) {
+            authButtons.classList.remove('loading');
         }
         
         if (user) {
@@ -538,10 +538,10 @@ class AuthUI {
 
 // Initialize auth UI when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
-    // Add loading state to auth container
-    const authContainer = document.getElementById('auth-nav-container');
-    if (authContainer) {
-        authContainer.classList.add('loading');
+    // Add loading state to auth buttons
+    const authButtons = document.getElementById('auth-buttons');
+    if (authButtons) {
+        authButtons.classList.add('loading');
     }
     
     // Wait for firebase-config.js to load
