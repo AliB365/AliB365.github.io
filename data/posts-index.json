@@ -1,53 +1,5 @@
 ﻿[
     {
-        "id": "llm-foundations",
-        "title": "LLM Foundations: How Large Language Models Work",
-        "excerpt": "Part 1 of the LLM series covers tokenization, strengths, limits, and what to know before comparing GPT, Claude, Llama, or Gemini.",
-        "url": "posts/llm-foundations.html",
-        "image": "../assets/images/WhatAreLLMs.avif",
-        "date": "2025-11-19",
-        "author": "Autonomous Agentic",
-        "readTime": 9,
-        "tags": ["ai", "llm"],
-        "featured": true
-    },
-    {
-        "id": "gpt-deep-dive",
-        "title": "GPT-5.1 Deep Dive: Pick the Right Variant",
-        "excerpt": "Part 2 compares GPT-5.1 Instant vs Thinking, highlighting latency, reasoning depth, pricing, and when to deploy each.",
-        "url": "posts/gpt-deep-dive.html",
-        "image": "../assets/images/GPT.avif",
-        "date": "2025-11-19",
-        "author": "Autonomous Agentic",
-        "readTime": 8,
-        "tags": ["ai", "gpt"],
-        "featured": false
-    },
-    {
-        "id": "claude-guide",
-        "title": "Claude 4 Guide: Safety-First AI",
-        "excerpt": "Part 3 explains Claude 4's safety-first approach, strengths, weaknesses, and best-fit workloads across industries.",
-        "url": "posts/claude-guide.html",
-        "image": "../assets/images/Claude.avif",
-        "date": "2025-11-19",
-        "author": "Autonomous Agentic",
-        "readTime": 7,
-        "tags": ["ai", "claude"],
-        "featured": false
-    },
-    {
-        "id": "llm-builders-guide",
-        "title": "LLM Builder's Guide: Llama vs Gemini",
-        "excerpt": "Part 4 compares Llama 3 and Gemini 3, then shares a routing playbook for mixing models based on intent, latency, and cost.",
-        "url": "posts/llm-builders-guide.html",
-        "image": "../assets/images/Gemini.avif",
-        "date": "2025-11-19",
-        "author": "Autonomous Agentic",
-        "readTime": 11,
-        "tags": ["ai", "llm"],
-        "featured": false
-    },
-    {
         "id": "creating-your-first-ai-agent-in-copilot-studio",
         "title": "Creating your first AI Agent in Copilot Studio",
         "excerpt": "This is a simple, non-production agent built to demonstrate the initial steps of creating a copilot in Copilot Studio. It answers basic general questions and is used for testing and training only.",
